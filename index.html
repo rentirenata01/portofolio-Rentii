@@ -1,0 +1,1424 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portofolio Renti Renata | Kawaii Pink Aesthetic</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Fredoka & Quicksand -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        pinky: {
+                            100: '#FFF0F5',
+                            200: '#FFD1DC',
+                            300: '#FFB6C1',
+                            400: '#FF69B4',
+                            500: '#FF1493',
+                            600: '#DB7093'
+                        },
+                        cream: '#FFFDD0',
+                        lavender: '#E6E6FA'
+                    },
+                    fontFamily: {
+                        fredoka: ['Fredoka', 'sans-serif'],
+                        quicksand: ['Quicksand', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background-color: #FFF0F5;
+            background-image: radial-gradient(#FFD1DC 1.5px, transparent 1.5px);
+            background-size: 24px 24px;
+            overflow-x: hidden;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FFF0F5;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #FFB6C1;
+            border-radius: 10px;
+            border: 2px solid #FFF0F5;
+        }
+
+        /* Claymorphism & Glassmorphism Effects */
+        .clay-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            border: 3px solid #FFD1DC;
+            box-shadow: 0 10px 25px -5px rgba(255, 105, 180, 0.2), inset 0 2px 4px rgba(255, 255, 255, 0.8);
+            border-radius: 24px;
+        }
+
+        .clay-button {
+            background: linear-gradient(135deg, #FF69B4, #FF1493);
+            box-shadow: 0 4px 15px rgba(255, 20, 147, 0.3), inset 0 2px 2px rgba(255, 255, 255, 0.5);
+            transition: all 0.2s ease;
+        }
+        .clay-button:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 20px rgba(255, 20, 147, 0.4);
+        }
+        .clay-button:active {
+            transform: translateY(1px);
+        }
+
+        /* Holographic Card Effect */
+        .holo-card {
+            position: relative;
+            background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(255,209,220,0.8));
+            border: 2px solid rgba(255,255,255,0.8);
+            box-shadow: 0 15px 35px rgba(255, 105, 180, 0.25);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+        .holo-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent,
+                rgba(255, 255, 255, 0.4),
+                rgba(255, 182, 193, 0.3),
+                rgba(230, 230, 250, 0.4),
+                transparent
+            );
+            transform: rotate(30deg);
+            animation: holoShift 6s infinite linear;
+            pointer-events: none;
+        }
+
+        @keyframes holoShift {
+            0% { transform: translateY(-50%) rotate(30deg); }
+            100% { transform: translateY(50%) rotate(30deg); }
+        }
+
+        /* Draggable Sticker Styling */
+        .drag-sticker {
+            cursor: grab;
+            user-select: none;
+            touch-action: none;
+            transition: transform 0.1s ease;
+        }
+        .drag-sticker:active {
+            cursor: grabbing;
+            transform: scale(1.15) rotate(5deg);
+        }
+
+        /* Floating Animation */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-8px) rotate(2deg); }
+        }
+        .animate-float {
+            animation: float 4s ease-in-out infinite;
+        }
+
+        /* Ribbon Decoration */
+        .ribbon-tag {
+            background: #FF69B4;
+            color: white;
+            position: relative;
+        }
+        .ribbon-tag::after {
+            content: '';
+            position: absolute;
+            right: -10px;
+            top: 0;
+            border-top: 15px solid #FF69B4;
+            border-bottom: 15px solid #FF69B4;
+            border-right: 10px solid transparent;
+        }
+
+        /* Sparkle & Ribbon Animations */
+        @keyframes pulseGlow {
+            0%, 100% { filter: drop-shadow(0 0 5px rgba(255,105,180,0.5)); }
+            50% { filter: drop-shadow(0 0 15px rgba(255,105,180,0.9)); }
+        }
+        .glow-effect {
+            animation: pulseGlow 2.5s infinite;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <!-- DRAGGABLE STICKERS OVERLAY -->
+    <div id="sticker-container" class="fixed inset-0 pointer-events-none z-50">
+        <div class="drag-sticker pointer-events-auto absolute top-20 left-6 text-3xl md:text-4xl filter drop-shadow-md" style="top: 15%; left: 3%;">🌸</div>
+        <div class="drag-sticker pointer-events-auto absolute text-3xl md:text-4xl filter drop-shadow-md" style="top: 40%; right: 4%;">🎀</div>
+        <div class="drag-sticker pointer-events-auto absolute text-3xl md:text-4xl filter drop-shadow-md" style="top: 70%; left: 2%;">🧋</div>
+        <div class="drag-sticker pointer-events-auto absolute text-3xl md:text-4xl filter drop-shadow-md" style="top: 85%; right: 5%;">✨</div>
+        <div class="drag-sticker pointer-events-auto absolute text-3xl md:text-4xl filter drop-shadow-md" style="top: 25%; right: 10%;">🍓</div>
+    </div>
+
+
+<!-- NAVBAR -->
+    <nav class="sticky top-4 z-40 max-w-6xl mx-auto px-4">
+      <div class="clay-card px-6 py-3 flex items-center justify-between relative">
+        
+        <!-- Logo -->
+        <a href="#" class="flex items-center gap-2 font-fredoka font-bold text-2xl text-pinky-500">
+          <span class="bg-pinky-200 text-pinky-500 w-10 h-10 rounded-2xl flex items-center justify-center shadow-sm">RR</span>
+          <span class="text-sm font-normal text-pinky-600 block -mt-1">Renti Renata</span>
+        </a>
+
+        <!-- Menu Desktop -->
+        <div class="hidden md:flex items-center gap-6 font-fredoka text-sm text-pinky-600">
+          <a href="#beranda" class="nav-link hover:text-pinky-500 hover:scale-105 transition">Beranda</a>
+          <a href="#tentang" class="nav-link hover:text-pinky-500 hover:scale-105 transition">Tentang</a>
+          <a href="#keahlian" class="nav-link hover:text-pinky-500 hover:scale-105 transition">Keahlian</a>
+          <a href="#proyek" class="nav-link hover:text-pinky-500 hover:scale-105 transition">Proyek</a>
+          <a href="#pengalaman" class="nav-link hover:text-pinky-500 hover:scale-105 transition">Pengalaman</a>
+          <a href="#kontak" class="nav-link hover:text-pinky-500 hover:scale-105 transition">Kontak</a>
+        </div>
+
+        <!-- Tombol Kanan: Dark Mode & Hamburger Menu HP -->
+        <div class="flex items-center gap-2">
+          <!-- Tombol Mode Gelap -->
+          <button onclick="toggleDarkMode()" class="bg-white text-pink-500 border-2 border-pink-200 hover:bg-pink-50 p-2 rounded-xl transition flex items-center justify-center">
+            <i class="fa-solid fa-moon text-sm"></i>
+          </button>
+
+          <!-- Tombol Hamburger (Khusus Layar HP / Mobile) -->
+          <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="md:hidden bg-white text-pink-500 border-2 border-pink-200 hover:bg-pink-50 p-2 rounded-xl transition flex items-center justify-center">
+            <i class="fa-solid fa-bars text-base"></i>
+          </button>
+        </div>
+
+        <!-- Menu Dropdown HP (Pop-up saat garis 3 diklik) -->
+        <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 w-full mt-3 p-4 bg-white/95 backdrop-blur-md rounded-2xl border-2 border-pink-200 shadow-xl flex flex-col gap-3 font-fredoka text-sm text-pinky-600 z-50">
+          <a href="#beranda" onclick="toggleMobileMenu()" class="nav-link px-4 py-2 rounded-xl hover:bg-pink-100 transition">Beranda</a>
+          <a href="#tentang" onclick="toggleMobileMenu()" class="nav-link px-4 py-2 rounded-xl hover:bg-pink-100 transition">Tentang</a>
+          <a href="#keahlian" onclick="toggleMobileMenu()" class="nav-link px-4 py-2 rounded-xl hover:bg-pink-100 transition">Keahlian</a>
+          <a href="#proyek" onclick="toggleMobileMenu()" class="nav-link px-4 py-2 rounded-xl hover:bg-pink-100 transition">Proyek</a>
+          <a href="#pengalaman" onclick="toggleMobileMenu()" class="nav-link px-4 py-2 rounded-xl hover:bg-pink-100 transition">Pengalaman</a>
+          <a href="#kontak" onclick="toggleMobileMenu()" class="nav-link px-4 py-2 rounded-xl hover:bg-pink-100 transition">Kontak</a>
+        </div>
+
+      </div>
+    </nav>   
+   </div>
+<!-- HERO SECTION -->
+  <section id="beranda" class="max-w-6xl mx-auto px-4 pt-10 pb-16 min-h-[85vh] flex items-center">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center w-full">
+      
+      <!-- Kiri: Teks Perkenalan -->
+      <div class="lg:col-span-7 text-center px-14  lg:text-left space-y-5  ">
+        <div class="inline-flex items-center gap-2 bg-pink-100 text-pink-600 px-4 py-2 rounded-full font-medium text-sm shadow-sm">
+          <span>🌸</span> Student & PKL Trainee @ SMKN Manonjaya
+        </div>
+        
+        <h1 class="font-fredoka text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-800 leading-tight">
+          Halo, Saya <span class="text-pink-600 font-bold">Renti Renata</span> 💖
+        </h1>
+        
+        <p class="text-gray-600 text-base sm:text-lg max-w-xl mx-auto lg:mx-0 font-medium">
+          Siswi SMKN Manonjaya yang ceria, penuh semangat, dan sedang menjalankan kegiatan PKL (Prakerin) di Access Media Tasikmalaya. Suka eksplorasi Pemrograman Web & Desain Grafis.
+        </p>
+
+        <!-- Tombol Aksi (Keduanya Pink Solid & Konsisten) -->
+        <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
+          <!-- Tombol Lihat Proyek -->
+          <a href="#proyek" class="btn-pink-fix bg-pink-500 text-white hover:bg-pink-600 px-6 py-3.5 rounded-2xl font-bold text-sm shadow-md flex items-center gap-2 transition">
+            <i class="fa-solid fa-folder-open text-white"></i> Lihat Proyek
+          </a>
+          
+          <!-- Tombol Kirim Pesan -->
+          <a href="#kontak" class="btn-pink-fix bg-pink-500 text-white hover:bg-pink-600 px-6 py-3.5 rounded-2xl font-bold text-sm shadow-md flex items-center gap-2 transition">
+            <i class="fa-solid fa-paper-plane text-white"></i> Kirim Pesan
+          </a>
+        </div>
+      </div>
+
+      <!-- Kanan: Kotak Foto Wajah (Tetap rapi di atas/samping teks) -->
+      <div class="lg:col-span-5 flex justify-center">
+        <div class="w-full max-w-sm rounded-3xl p-4 text-center shadow-xl overflow-hidden bg-white border-2 border-pink-200">
+          <div class="w-full h-80 rounded-2xl overflow-hidden shadow-inner border-2 border-pink-100">
+            <img src="foto-renti.jpg.jpeg" alt="Foto Renti Renata" class="w-full h-full object-cover">
+          </div>
+          <p class="text-xs font-bold text-pink-600 mt-3 font-fredoka flex items-center justify-center gap-1">
+            <span>✨</span> Renti Renata - SMKN Manonjaya <span>✨</span>
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>    
+
+          <!-- BAGIAN TENTANG SAYA -->
+  <section id="tentang" class="py-16 px-4">
+    <div class="max-w-4xl mx-auto clay-card p-8 md:p-10 rounded-3xl bg-white shadow-lg">
+      <h2 class="text-3xl md:text-4xl font-bold text-pink-600 mb-6 font-fredoka text-center md:text-left">
+        Tentang Saya 🌸
+      </h2>
+      <div class="space-y-4 text-gray-700 leading-relaxed font-medium">
+        <p>
+          Halo semuanya! Perkenalkan, nama aku <b>Renti Renata</b>. Saat ini aku adalah siswi jurusan <b>Rekayasa Perangkat Lunak (RPL)</b> di <b>SMKN Manonjaya</b> yang memiliki ketertarikan tinggi pada dunia pemrograman web dan desain antarmuka digital.
+        </p>
+        <p>
+          Melalui kegiatan pembelajaran di sekolah serta pengalaman praktik kerja, aku terus mengasah kemampuan <i>front-end development</i> (seperti HTML, CSS, Tailwind CSS, dan JavaScript) sekaligus merancang visual yang estetik. Aku percaya bahwa paduan antara logika koding yang kuat dan kreativitas seni dapat melahirkan karya website yang luar biasa! ✨
+        </p>
+      </div>
+    </div>
+  </section>
+    <!-- KEAHLIAN & FOKUS PEMBELAJARAN (BOBA METERS) -->
+    <section id="keahlian" class="max-w-6xl mx-auto px-4 py-12">
+        <div class="text-center mb-10">
+            <h2 class="font-fredoka text-3xl md:text-4xl font-bold text-gray-800">Keahlian & Pembelajaran 🧋</h2>
+            <p class="text-gray-600 font-medium mt-1">Kemampuan yang sedang saya asah dan pelajari secara konsisten</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Pemrograman Web -->
+            <div class="clay-card p-6 space-y-5">
+                <div class="flex items-center gap-3 border-b border-pinky-200 pb-3">
+                    <span class="p-2.5 bg-pinky-200 rounded-2xl text-pinky-500 text-xl"><i class="fa-solid fa-code"></i></span>
+                    <h3 class="font-fredoka text-xl font-bold text-gray-800">Pemrograman Web</h3>
+                </div>
+
+                <!-- Skill items with Boba style indicators -->
+                <div class="space-y-4 font-fredoka">
+                    <div>
+                        <div class="flex justify-between text-sm mb-1">
+                            <span class="text-gray-700">HTML5 & CSS3</span>
+                            <span class="text-pinky-500 font-bold">Dalam Proses Belajar (80%)</span>
+                        </div>
+                        <div class="w-full bg-pinky-100 rounded-full h-4 p-0.5 border border-pinky-300">
+                            <div class="bg-pinky-400 h-full rounded-full flex items-center justify-end px-1" style="width: 80%;">
+                                <span class="text-[10px] text-white">🧋🧋🧋</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between text-sm mb-1">
+                            <span class="text-gray-700">Tailwind CSS</span>
+                            <span class="text-pinky-500 font-bold">Dalam Proses Belajar (70%)</span>
+                        </div>
+                        <div class="w-full bg-pinky-100 rounded-full h-4 p-0.5 border border-pinky-300">
+                            <div class="bg-pinky-400 h-full rounded-full flex items-center justify-end px-1" style="width: 70%;">
+                                <span class="text-[10px] text-white">🧋🧋</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between text-sm mb-1">
+                            <span class="text-gray-700">JavaScript & PHP Dasar</span>
+                            <span class="text-pinky-500 font-bold">Tahap Dasar (60%)</span>
+                        </div>
+                        <div class="w-full bg-pinky-100 rounded-full h-4 p-0.5 border border-pinky-300">
+                            <div class="bg-pinky-400 h-full rounded-full flex items-center justify-end px-1" style="width: 60%;">
+                                <span class="text-[10px] text-white">🧋</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Desain & Software Tool -->
+            <div class="clay-card p-6 space-y-5">
+                <div class="flex items-center gap-3 border-b border-pinky-200 pb-3">
+                    <span class="p-2.5 bg-pinky-200 rounded-2xl text-pinky-500 text-xl"><i class="fa-solid fa-palette"></i></span>
+                    <h3 class="font-fredoka text-xl font-bold text-gray-800">Desain & Alat Produksi</h3>
+                </div>
+
+                <div class="space-y-4 font-fredoka">
+                    <div>
+                        <div class="flex justify-between text-sm mb-1">
+                            <span class="text-gray-700">Canva & Layout Desain</span>
+                            <span class="text-pinky-500 font-bold">Mahir (85%)</span>
+                        </div>
+                        <div class="w-full bg-pinky-100 rounded-full h-4 p-0.5 border border-pinky-300">
+                            <div class="bg-pinky-500 h-full rounded-full flex items-center justify-end px-1" style="width: 85%;">
+                                <span class="text-[10px] text-white">🧋🧋🧋</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between text-sm mb-1">
+                            <span class="text-gray-700">VS Code & Tools Developer</span>
+                            <span class="text-pinky-500 font-bold">Terbiasa (75%)</span>
+                        </div>
+                        <div class="w-full bg-pinky-100 rounded-full h-4 p-0.5 border border-pinky-300">
+                            <div class="bg-pinky-500 h-full rounded-full flex items-center justify-end px-1" style="width: 75%;">
+                                <span class="text-[10px] text-white">🧋🧋</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between text-sm mb-1">
+                            <span class="text-gray-700">Microsoft Office & Perkantoran</span>
+                            <span class="text-pinky-500 font-bold">Sangat Baik (80%)</span>
+                        </div>
+                        <div class="w-full bg-pinky-100 rounded-full h-4 p-0.5 border border-pinky-300">
+                            <div class="bg-pinky-500 h-full rounded-full flex items-center justify-end px-1" style="width: 80%;">
+                                <span class="text-[10px] text-white">🧋🧋🧋</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROYEK DENGAN GAMBAR ILUSTRASI SVG CUSTOM DETAIL -->
+    <section id="proyek" class="max-w-6xl mx-auto px-4 py-12">
+        <div class="text-center mb-10">
+            <div class="inline-block bg-pinky-200 text-pinky-600 px-4 py-1 rounded-full font-fredoka text-xs font-bold mb-2">PORTFOLIO SHOWCASE</div>
+            <h2 class="font-fredoka text-3xl md:text-4xl font-bold text-gray-800">Proyek Saya 💻✨</h2>
+            <p class="text-gray-600 font-medium mt-1">Hasil karya tugas sekolah dan proyek prakerin di Access Media Tasikmalaya</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+            <!-- Card 1: Redesain Website Access Media (PKL Project) -->
+            <div class="clay-card overflow-hidden flex flex-col hover:-translate-y-2 transition duration-300">
+                <!-- SVG Custom Vector Illustration - Dashboard Laptop Pink -->
+                <div class="w-full h-52 bg-gradient-to-br from-pink-200 via-pinky-100 to-pink-300 p-4 flex items-center justify-center relative border-b-2 border-pinky-200">
+                    <span class="absolute top-2 left-3 bg-pinky-500 text-white font-fredoka text-[10px] px-2 py-0.5 rounded-full uppercase">Proyek PKL</span>
+                    
+                    <svg class="w-full h-full max-h-44" viewBox="0 0 300 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Laptop Shadow -->
+                        <ellipse cx="150" cy="165" rx="110" ry="10" fill="#FFB6C1" opacity="0.5"/>
+                        <!-- Laptop Base -->
+                        <path d="M40 150 L260 150 L275 160 L25 160 Z" fill="#FFB6C1"/>
+                        <path d="M120 150 L180 150 L175 155 L125 155 Z" fill="#FF69B4"/>
+                        <!-- Screen Outer Frame -->
+                        <rect x="50" y="20" width="200" height="130" rx="10" fill="#333" stroke="#FF8DA1" stroke-width="4"/>
+                        <!-- Screen Inner Display -->
+                        <rect x="58" y="28" width="184" height="114" rx="6" fill="#FFF0F5"/>
+                        <!-- Website Header -->
+                        <rect x="58" y="28" width="184" height="18" fill="#FF69B4"/>
+                        <circle cx="68" cy="37" r="3" fill="#FFF"/>
+                        <circle cx="78" cy="37" r="3" fill="#FFF"/>
+                        <circle cx="88" cy="37" r="3" fill="#FFF"/>
+                        <rect x="110" y="33" width="80" height="8" rx="4" fill="#FFFFFF" opacity="0.8"/>
+                        <!-- Dashboard UI Elements -->
+                        <rect x="66" y="52" width="50" height="40" rx="6" fill="#FFD1DC"/>
+                        <circle cx="91" cy="67" r="8" fill="#FF69B4"/>
+                        <rect x="74" y="80" width="34" height="6" rx="3" fill="#FF1493"/>
+                        
+                        <rect x="122" y="52" width="112" height="40" rx="6" fill="#FFFFFF" stroke="#FFD1DC" stroke-width="2"/>
+                        <!-- Bar Chart UI -->
+                        <rect x="132" y="74" width="8" height="12" rx="2" fill="#FFB6C1"/>
+                        <rect x="146" y="66" width="8" height="20" rx="2" fill="#FF69B4"/>
+                        <rect x="160" y="60" width="8" height="26" rx="2" fill="#FF1493"/>
+                        <rect x="174" y="68" width="8" height="18" rx="2" fill="#FFB6C1"/>
+                        <rect x="188" y="56" width="8" height="30" rx="2" fill="#FF69B4"/>
+
+                        <rect x="66" y="98" width="168" height="36" rx="6" fill="#FFFFFF" stroke="#FFD1DC" stroke-width="2"/>
+                        <circle cx="78" cy="116" r="8" fill="#FFB6C1"/>
+                        <rect x="92" y="108" width="80" height="6" rx="3" fill="#FF69B4"/>
+                        <rect x="92" y="118" width="120" height="5" rx="2" fill="#FFD1DC"/>
+                    </svg>
+                </div>
+
+                <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+                    <div>
+                        <h3 class="font-fredoka text-xl font-bold text-gray-800 mb-2">Redesain Website Access Media</h3>
+                        <p class="text-xs text-gray-600 leading-relaxed font-medium">
+                            Proyek pembaruan antarmuka (UI/UX) situs utama tempat PKL agar lebih interaktif, estetik, responsif, dan mudah diakses oleh para pengunjung.
+                        </p>
+                    </div>
+
+                    <div>
+                        <div class="flex flex-wrap gap-1.5 mb-4">
+                            <span class="bg-pinky-100 text-pinky-600 font-fredoka text-[11px] px-2.5 py-1 rounded-lg">Tailwind CSS</span>
+                            <span class="bg-pinky-100 text-pinky-600 font-fredoka text-[11px] px-2.5 py-1 rounded-lg">UI/UX Design</span>
+                            <span class="bg-pinky-100 text-pinky-600 font-fredoka text-[11px] px-2.5 py-1 rounded-lg">Responsive</span>
+                        </div>
+                        <button onclick="openProjectModal('AccessMedia')" class="clay-button text-white font-fredoka text-xs py-2.5 px-4 rounded-xl w-full flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-eye"></i> Detail Proyek
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2: Company Profile Presentation (Canva Project) -->
+            <div class="clay-card overflow-hidden flex flex-col hover:-translate-y-2 transition duration-300">
+                <!-- SVG Custom Vector Illustration - Scrapbook & Presentation Board -->
+                <div class="w-full h-52 bg-gradient-to-br from-pinky-100 via-pink-200 to-lavender p-4 flex items-center justify-center relative border-b-2 border-pinky-200">
+                    <span class="absolute top-2 left-3 bg-pinky-500 text-white font-fredoka text-[10px] px-2 py-0.5 rounded-full uppercase">Canva / Desain</span>
+
+                    <svg class="w-full h-full max-h-44" viewBox="0 0 300 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Background Board -->
+                        <rect x="40" y="20" width="220" height="140" rx="12" fill="#FFFFFF" stroke="#FFB6C1" stroke-width="3"/>
+                        <!-- Clip top -->
+                        <rect x="125" y="12" width="50" height="16" rx="4" fill="#FF69B4"/>
+                        <circle cx="150" cy="20" r="3" fill="#FFF"/>
+
+                        <!-- Content inside Scrapbook Board -->
+                        <rect x="55" y="38" width="80" height="60" rx="8" fill="#FFD1DC"/>
+                        <!-- Image Icon inside block -->
+                        <circle cx="80" cy="60" r="10" fill="#FF69B4"/>
+                        <path d="M60 88 L75 70 L95 90 L110 78 L125 90 Z" fill="#FF1493"/>
+
+                        <!-- Text Mock Lines -->
+                        <rect x="145" y="42" width="95" height="10" rx="5" fill="#FF69B4"/>
+                        <rect x="145" y="58" width="80" height="6" rx="3" fill="#FFB6C1"/>
+                        <rect x="145" y="68" width="90" height="6" rx="3" fill="#FFB6C1"/>
+                        <rect x="145" y="78" width="60" height="6" rx="3" fill="#FFB6C1"/>
+
+                        <!-- Sticker decorations -->
+                        <circle cx="225" cy="115" r="16" fill="#FFF0F5" stroke="#FF69B4" stroke-dasharray="3 3"/>
+                        <text x="217" y="120" font-size="14">🌸</text>
+
+                        <!-- Color Palette Swatches -->
+                        <rect x="55" y="110" width="20" height="20" rx="5" fill="#FF1493"/>
+                        <rect x="80" y="110" width="20" height="20" rx="5" fill="#FF69B4"/>
+                        <rect x="105" y="110" width="20" height="20" rx="5" fill="#FFD1DC"/>
+                        <rect x="130" y="110" width="20" height="20" rx="5" fill="#E6E6FA"/>
+                    </svg>
+                </div>
+
+                <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+                    <div>
+                        <h3 class="font-fredoka text-xl font-bold text-gray-800 mb-2">Desain Profil Perusahaan</h3>
+                        <p class="text-xs text-gray-600 leading-relaxed font-medium">
+                            Perancangan materi presentasi & Company Profile visual berbasis Canva dengan paduan warna aesthetic untuk branding profesional.
+                        </p>
+                    </div>
+
+                    <div>
+                        <div class="flex flex-wrap gap-1.5 mb-4">
+                            <span class="bg-pinky-100 text-pinky-600 font-fredoka text-[11px] px-2.5 py-1 rounded-lg">Canva</span>
+                            <span class="bg-pinky-100 text-pinky-600 font-fredoka text-[11px] px-2.5 py-1 rounded-lg">Branding</span>
+                            <span class="bg-pinky-100 text-pinky-600 font-fredoka text-[11px] px-2.5 py-1 rounded-lg">Visual Design</span>
+                        </div>
+                        <button onclick="openProjectModal('CompanyProfile')" class="clay-button text-white font-fredoka text-xs py-2.5 px-4 rounded-xl w-full flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-eye"></i> Detail Proyek
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3: Aplikasi Pengelolaan Laundry (Tugas Sekolah SMK) -->
+            <div class="clay-card overflow-hidden flex flex-col hover:-translate-y-2 transition duration-300">
+                <!-- SVG Custom Vector Illustration - Cute Washing Machine -->
+                <div class="w-full h-52 bg-gradient-to-br from-pink-100 via-pinky-200 to-pink-300 p-4 flex items-center justify-center relative border-b-2 border-pinky-200">
+                    <span class="absolute top-2 left-3 bg-pinky-500 text-white font-fredoka text-[10px] px-2 py-0.5 rounded-full uppercase">Tugas Web SMK</span>
+
+                    <svg class="w-full h-full max-h-44" viewBox="0 0 300 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Cute Washing Machine Body -->
+                        <rect x="90" y="20" width="120" height="140" rx="18" fill="#FFFFFF" stroke="#FF69B4" stroke-width="4"/>
+                        <!-- Top Panel -->
+                        <rect x="90" y="20" width="120" height="30" rx="10" fill="#FFD1DC"/>
+                        <circle cx="115" cy="35" r="5" fill="#FF1493"/>
+                        <circle cx="130" cy="35" r="3" fill="#FF69B4"/>
+                        <circle cx="140" cy="35" r="3" fill="#FF69B4"/>
+                        <!-- Display Screen -->
+                        <rect x="160" y="28" width="35" height="14" rx="4" fill="#333"/>
+                        <text x="165" y="39" fill="#00FFCC" font-family="monospace" font-size="9">00:45</text>
+
+                        <!-- Washer Glass Door -->
+                        <circle cx="150" cy="100" r="38" fill="#FFB6C1" stroke="#FF69B4" stroke-width="4"/>
+                        <circle cx="150" cy="100" r="28" fill="#87CEEB" opacity="0.7"/>
+                        
+                        <!-- Water Bubbles inside -->
+                        <circle cx="140" cy="95" r="8" fill="#FFF" opacity="0.8"/>
+                        <circle cx="160" cy="108" r="6" fill="#FFF" opacity="0.8"/>
+                        <path d="M135 110 Q150 95 165 110" stroke="#FFF" stroke-width="3" stroke-linecap="round"/>
+
+                        <!-- Floating Soap Bubbles Outside -->
+                        <circle cx="65" cy="60" r="10" fill="#FFF" opacity="0.6" stroke="#FFB6C1"/>
+                        <circle cx="78" cy="45" r="6" fill="#FFF" opacity="0.6" stroke="#FFB6C1"/>
+                        <circle cx="230" cy="80" r="12" fill="#FFF" opacity="0.6" stroke="#FFB6C1"/>
+                        <circle cx="220" cy="105" r="7" fill="#FFF" opacity="0.6" stroke="#FFB6C1"/>
+                    </svg>
+                </div>
+
+                <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+                    <div>
+                        <h3 class="font-fredoka text-xl font-bold text-gray-800 mb-2">Aplikasi Kasir & Laundry</h3>
+                        <p class="text-xs text-gray-600 leading-relaxed font-medium">
+                            Sistem pengelolaan data pencatatan transaksi laundry bulanan lengkap dengan perhitungan otomatis dan status pesanan pelanggan.
+                        </p>
+                    </div>
+
+                    <div>
+                        <div class="flex flex-wrap gap-1.5 mb-4">
+                            <span class="bg-pinky-100 text-pinky-600 font-fredoka text-[11px] px-2.5 py-1 rounded-lg">HTML / CSS</span>
+                            <span class="bg-pinky-100 text-pinky-600 font-fredoka text-[11px] px-2.5 py-1 rounded-lg">JavaScript</span>
+                            <span class="bg-pinky-100 text-pinky-600 font-fredoka text-[11px] px-2.5 py-1 rounded-lg">PHP Basic</span>
+                        </div>
+                        <button onclick="openProjectModal('Laundry')" class="clay-button text-white font-fredoka text-xs py-2.5 px-4 rounded-xl w-full flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-eye"></i> Detail Proyek
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- PENGALAMAN & RIWAYAT -->
+    <section id="pengalaman" class="max-w-6xl mx-auto px-4 py-12">
+        <div class="clay-card p-8 md:p-10">
+            <div class="text-center mb-8">
+                <h2 class="font-fredoka text-3xl font-bold text-gray-800">Pengalaman & Jejak Langkah 🐾</h2>
+                <p class="text-gray-600 font-medium text-sm mt-1">Perjalanan pendidikan dan praktik kerja industri Renti</p>
+            </div>
+
+            <div class="relative border-l-4 border-pinky-300 ml-4 md:ml-8 space-y-8">
+                
+                <!-- Timeline Item 1 -->
+                <div class="relative pl-6 md:pl-8">
+                    <span class="absolute -left-[15px] top-1 bg-pinky-500 text-white w-7 h-7 rounded-full flex items-center justify-center text-xs shadow-md">
+                        <i class="fa-solid fa-briefcase"></i>
+                    </span>
+                    <div class="bg-white p-5 rounded-2xl border border-pinky-200 shadow-sm">
+                        <span class="bg-pinky-100 text-pinky-600 font-fredoka text-xs px-3 py-1 rounded-full font-bold">Sedang Berlangsung</span>
+                        <h3 class="font-fredoka text-xl font-bold text-gray-800 mt-2">Peserta PKL (Prakerin) @ Access Media Tasikmalaya</h3>
+                        <p class="text-xs text-gray-500 font-semibold mb-2">Tasikmalaya, Jawa Barat</p>
+                        <p class="text-sm text-gray-600 leading-relaxed font-medium">
+                            Melaksanakan tugas praktik kerja lapangan dalam perancangan desain media visual, eksplorasi antarmuka web modern, dan mempelajari budaya kerja profesional dalam tim media digital.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Timeline Item 2 -->
+                <div class="relative pl-6 md:pl-8">
+                    <span class="absolute -left-[15px] top-1 bg-pinky-400 text-white w-7 h-7 rounded-full flex items-center justify-center text-xs shadow-md">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                    </span>
+                    <div class="bg-white p-5 rounded-2xl border border-pinky-200 shadow-sm">
+                        <span class="bg-pinky-100 text-pinky-600 font-fredoka text-xs px-3 py-1 rounded-full font-bold">Siswi Aktif</span>
+                        <h3 class="font-fredoka text-xl font-bold text-gray-800 mt-2">SMKN Manonjaya</h3>
+                        <p class="text-xs text-gray-500 font-semibold mb-2">Kabupaten Tasikmalaya</p>
+                        <p class="text-sm text-gray-600 leading-relaxed font-medium">
+                            Mempelajari dasar-dasar keahlian komputer, jaringan, serta pengembangan perangkat lunak web dan aplikasi. Aktif berpartisipasi dalam tugas kelompok dan proyek kreatif sekolah.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- INTERAKTIF: STICKY NOTE GUESTBOOK & KONTAK -->
+    <section id="kontak" class="max-w-6xl mx-auto px-4 py-12">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            
+            <!-- Guestbook Sticky Notes Board -->
+            <div class="lg:col-span-7 clay-card p-6 md:p-8">
+                <div class="flex justify-between items-center mb-6">
+                    <div>
+                        <h2 class="font-fredoka text-2xl font-bold text-gray-800">Sticky Guestbook 📝</h2>
+                        <p class="text-xs text-gray-500">Tinggalkan pesan manis untuk Renti di papan ini!</p>
+                    </div>
+                    <span class="text-3xl">📌</span>
+                </div>
+
+                <!-- Input Form -->
+                <form id="guestbookForm" onsubmit="addStickyNote(event)" class="space-y-3 mb-6">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <input type="text" id="guestName" placeholder="Nama Kamu..." required class="w-full px-4 py-2.5 rounded-xl border-2 border-pinky-200 focus:outline-none focus:border-pinky-400 font-fredoka text-sm">
+                        <select id="noteColor" class="w-full px-4 py-2.5 rounded-xl border-2 border-pinky-200 focus:outline-none focus:border-pinky-400 font-fredoka text-sm bg-white">
+                            <option value="bg-pink-100 border-pink-300">Pink Note 🌸</option>
+                            <option value="bg-yellow-100 border-yellow-300">Yellow Note 🍋</option>
+                            <option value="bg-purple-100 border-purple-300">Purple Note 🍇</option>
+                        </select>
+                    </div>
+                    <textarea id="guestMessage" placeholder="Tuliskan pesan atau dukungan di sini..." required rows="2" class="w-full px-4 py-2.5 rounded-xl border-2 border-pinky-200 focus:outline-none focus:border-pinky-400 font-fredoka text-sm"></textarea>
+                    <button type="submit" class="clay-button text-white font-fredoka text-xs px-5 py-2.5 rounded-xl flex items-center gap-2">
+                        <i class="fa-solid fa-thumbtack"></i> Tempel Pesan
+                    </button>
+                </form>
+
+                <!-- Sticky Notes Display Grid -->
+                <div id="stickyBoard" class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-h-72 overflow-y-auto p-2">
+                    <!-- Default Note 1 -->
+                    <div class="p-4 rounded-2xl border-2 bg-pink-100 border-pink-300 shadow-sm relative rotate-1 hover:rotate-0 transition">
+                        <span class="absolute top-2 right-2 text-xs">📌</span>
+                        <p class="font-fredoka text-xs font-bold text-pinky-600">Kak Pembimbing PKL</p>
+                        <p class="text-xs text-gray-700 mt-1">"Semangat PKL-nya Renti di Access Media! Karyanya makin keren."</p>
+                    </div>
+                    <!-- Default Note 2 -->
+                    <div class="p-4 rounded-2xl border-2 bg-yellow-100 border-yellow-300 shadow-sm relative -rotate-1 hover:rotate-0 transition">
+                        <span class="absolute top-2 right-2 text-xs">📌</span>
+                        <p class="font-fredoka text-xs font-bold text-yellow-700">Teman SMKN Manonjaya</p>
+                        <p class="text-xs text-gray-700 mt-1">"Website portofolionya lucu banget super pinky! Sukses selalu ya!"</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Info Card -->
+            <div class="lg:col-span-5 clay-card p-6 md:p-8 flex flex-col justify-between space-y-6">
+                <div>
+                    <h2 class="font-fredoka text-2xl font-bold text-gray-800 mb-2">Hubungi Renti 📬</h2>
+                    <p class="text-xs text-gray-600 font-medium">Mari berteman atau berkolaborasi dalam proyek seru!</p>
+
+                    <div class="space-y-4 mt-6 font-fredoka text-sm">
+                        <div class="flex items-center gap-3 p-3 bg-pinky-100 rounded-2xl border border-pinky-200">
+                            <span class="p-2 bg-white rounded-xl text-pinky-500"><i class="fa-solid fa-location-dot"></i></span>
+                            <div>
+                                <span class="block text-[10px] text-gray-500">LOKASI</span>
+                                <span class="font-bold text-gray-800 text-xs">Manonjaya, Tasikmalaya</span>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-3 p-3 bg-pinky-100 rounded-2xl border border-pinky-200">
+                            <span class="p-2 bg-white rounded-xl text-pinky-500"><i class="fa-solid fa-school"></i></span>
+                            <div>
+                                <span class="block text-[10px] text-gray-500">INSTANSI</span>
+                                <span class="font-bold text-gray-800 text-xs">SMKN Manonjaya / Access Media</span>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-3 p-3 bg-pinky-100 rounded-2xl border border-pinky-200">
+                            <span class="p-2 bg-white rounded-xl text-pinky-500"><i class="fa-solid fa-envelope"></i></span>
+                            <div>
+                                <span class="block text-[10px] text-gray-500">EMAIL</span>
+                                <span class="font-bold text-gray-800 text-xs">rentirenata6@gmail.com</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Social Icons -->
+                <div class="flex justify-center gap-4 pt-4 border-t border-pinky-200">
+                    <a href="#" onclick="playSound('click')" class="w-10 h-10 rounded-xl bg-pinky-200 text-pinky-600 flex items-center justify-center hover:bg-pinky-500 hover:text-white transition"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" onclick="playSound('click')" class="w-10 h-10 rounded-xl bg-pinky-200 text-pinky-600 flex items-center justify-center hover:bg-pinky-500 hover:text-white transition"><i class="fa-brands fa-github"></i></a>
+                    <a href="#" onclick="playSound('click')" class="w-10 h-10 rounded-xl bg-pinky-200 text-pinky-600 flex items-center justify-center hover:bg-pinky-500 hover:text-white transition"><i class="fa-brands fa-whatsapp"></i></a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="text-center py-8 font-fredoka text-xs text-pinky-600">
+        <p>Dibuat dengan 💖 & ✨ oleh <b>Renti Renata</b> — Siswi PKL SMKN Manonjaya</p>
+        <p class="mt-1 text-gray-400">© 2026 Access Media Tasikmalaya. All Rights Reserved.</p>
+    </footer>
+
+    <!-- MODAL DETAIL PROYEK -->
+    <div id="projectModal" class="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
+        <div class="clay-card max-w-md w-full p-6 relative animate-bounce-short">
+            <button onclick="closeProjectModal()" class="absolute top-4 right-4 text-pinky-500 hover:text-pinky-600 text-xl font-bold">✕</button>
+            <div id="modalContent">
+                <!-- Content injected dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT & INTERACTION LOGIC -->
+    <script>
+        // Sound FX Web Audio API Synthesizer (No external sound file dependency)
+        let soundEnabled = true;
+        let bgmPlaying = false;
+        let bgmInterval = null;
+
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+        function playSound(type) {
+            if (!soundEnabled) return;
+
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            if (type === 'click') {
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(523.25, audioCtx.currentTime); // C5
+                osc.frequency.exponentialRampToValueAtTime(880, audioCtx.currentTime + 0.1);
+                gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.1);
+            } else if (type === 'gacha') {
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(300, audioCtx.currentTime);
+                osc.frequency.linearRampToValueAtTime(600, audioCtx.currentTime + 0.2);
+                gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.2);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.2);
+            }
+        }
+
+        function toggleSoundFX() {
+            soundEnabled = !soundEnabled;
+            const icon = document.getElementById('soundIcon');
+            if (soundEnabled) {
+                icon.className = 'fa-solid fa-volume-high';
+                playSound('click');
+            } else {
+                icon.className = 'fa-solid fa-volume-xmark';
+            }
+        }
+
+        // BGM Chiptune Pink Synthesizer
+        function toggleBGM() {
+            const icon = document.getElementById('bgmIcon');
+            if (!bgmPlaying) {
+                bgmPlaying = true;
+                icon.className = 'fa-solid fa-pause';
+                const notes = [261.63, 329.63, 392.00, 523.25, 440.00, 349.23];
+                let step = 0;
+                bgmInterval = setInterval(() => {
+                    if (!soundEnabled) return;
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(notes[step % notes.length], audioCtx.currentTime);
+                    gain.gain.setValueAtTime(0.03, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.3);
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.3);
+                    step++;
+                }, 400);
+            } else {
+                bgmPlaying = false;
+                icon.className = 'fa-solid fa-music';
+                clearInterval(bgmInterval);
+            }
+        }
+
+        // Draggable Sticker System
+        const stickers = document.querySelectorAll('.drag-sticker');
+        stickers.forEach(sticker => {
+            let isDragging = false;
+            let currentX, currentY, initialX, initialY, xOffset = 0, yOffset = 0;
+
+            sticker.addEventListener('mousedown', dragStart);
+            sticker.addEventListener('touchstart', dragStart, {passive: false});
+
+            document.addEventListener('mousemove', drag);
+            document.addEventListener('touchmove', drag, {passive: false});
+
+            document.addEventListener('mouseup', dragEnd);
+            document.addEventListener('touchend', dragEnd);
+
+            function dragStart(e) {
+                if (e.type === "touchstart") {
+                    initialX = e.touches[0].clientX - xOffset;
+                    initialY = e.touches[0].clientY - yOffset;
+                } else {
+                    initialX = e.clientX - xOffset;
+                    initialY = e.clientY - yOffset;
+                }
+                isDragging = true;
+                playSound('click');
+            }
+
+            function drag(e) {
+                if (isDragging) {
+                    e.preventDefault();
+                    if (e.type === "touchmove") {
+                        currentX = e.touches[0].clientX - initialX;
+                        currentY = e.touches[0].clientY - initialY;
+                    } else {
+                        currentX = e.clientX - initialX;
+                        currentY = e.clientY - initialY;
+                    }
+                    xOffset = currentX;
+                    yOffset = currentY;
+                    sticker.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`;
+                }
+            }
+
+            function dragEnd() {
+                initialX = currentX;
+                initialY = currentY;
+                isDragging = false;
+            }
+        });
+
+        // Gachapon Spinner Logic
+        const gachaFacts = [
+            "🌸 Renti suka mendengarkan musik pop santai sambil menyusun desain di Canva!",
+            "🧋 Boba Brown Sugar adalah minuman favorit Renti saat tugas koding!",
+            "💻 Renti bercita-cita menjadi Frontend Web Designer berbakat di Tasikmalaya!",
+            "🎀 Pelajaran favorit Renti di SMKN Manonjaya adalah Pemrograman Web & Grafis!",
+            "✨ Renti sangat senang belajar hal baru di Access Media Tasikmalaya!"
+        ];
+
+        function spinGachapon() {
+            playSound('gacha');
+            const resultBox = document.getElementById('gachaResult');
+            resultBox.innerHTML = '<span class="animate-spin text-lg">🌸</span> Memutar...';
+            setTimeout(() => {
+                const randomFact = gachaFacts[Math.floor(Math.random() * gachaFacts.length)];
+                resultBox.innerHTML = randomFact;
+            }, 600);
+        }
+
+        // Sticky Guestbook Note Addition
+        function addStickyNote(e) {
+            e.preventDefault();
+            playSound('click');
+
+            const name = document.getElementById('guestName').value;
+            const message = document.getElementById('guestMessage').value;
+            const color = document.getElementById('noteColor').value;
+            const board = document.getElementById('stickyBoard');
+
+            const note = document.createElement('div');
+            note.className = `p-4 rounded-2xl border-2 ${color} shadow-sm relative rotate-1 hover:rotate-0 transition animate-fade-in`;
+            note.innerHTML = `
+                <span class="absolute top-2 right-2 text-xs">📌</span>
+                <p class="font-fredoka text-xs font-bold text-gray-800">${escapeHtml(name)}</p>
+                <p class="text-xs text-gray-700 mt-1">"${escapeHtml(message)}"</p>
+            `;
+
+            board.prepend(note);
+            document.getElementById('guestbookForm').reset();
+        }
+
+        function escapeHtml(text) {
+            return text.replace(/[&<>"']/g, function(m) { return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]; });
+        }
+
+        // Project Modal Handling
+        const projectData = {
+            'AccessMedia': {
+                title: "Redesain Website Access Media 🌸",
+                badge: "Proyek PKL",
+                desc: "Selama menjalani PKL di Access Media Tasikmalaya, Renti merancang ulang tampilan antarmuka (UI) dashboard situs utama menggunakan Tailwind CSS agar lebih modern, ringan, dan estetik.",
+                tools: ["Tailwind CSS", "HTML5", "Responsive Web Design"]
+            },
+            'CompanyProfile': {
+                title: "Desain Company Profile Canva 🎨",
+                badge: "Proyek Desain",
+                desc: "Perancangan dokumen profil perusahaan interaktif dan menarik berbasis Canva. Mengutamakan kerapihan tata letak, keselarasan warna pastel, dan kejelasan informasi.",
+                tools: ["Canva", "Branding Visual", "Microsoft PowerPoint"]
+            },
+            'Laundry': {
+                title: "Aplikasi Pengelolaan Laundry 🧺",
+                badge: "Tugas SMK",
+                desc: "Aplikasi berbasis web sederhana buatan Renti di SMKN Manonjaya untuk mencatat pesanan, menghitung total biaya cucian, dan memantau status pengerjaan pakaian secara sistematis.",
+                tools: ["HTML5 / CSS3", "JavaScript Logic", "PHP Dasar"]
+            }
+        };
+
+        function openProjectModal(key) {
+            playSound('click');
+            const data = projectData[key];
+            const content = document.getElementById('modalContent');
+
+            content.innerHTML = `
+                <span class="bg-pinky-200 text-pinky-600 font-fredoka text-xs px-3 py-1 rounded-full font-bold">${data.badge}</span>
+                <h3 class="font-fredoka text-2xl font-bold text-gray-800 mt-2 mb-3">${data.title}</h3>
+                <p class="text-xs text-gray-600 leading-relaxed font-medium mb-4">${data.desc}</p>
+                <div class="flex flex-wrap gap-2 mb-4">
+                    ${data.tools.map(t => `<span class="bg-pinky-100 text-pinky-600 font-fredoka text-[10px] px-2.5 py-1 rounded-lg">${t}</span>`).join('')}
+                </div>
+                <button onclick="closeProjectModal()" class="clay-button text-white font-fredoka text-xs py-2 px-4 rounded-xl w-full">Tutup Window</button>
+            `;
+
+            document.getElementById('projectModal').classList.remove('hidden');
+        }
+
+        function closeProjectModal() {
+            playSound('click');
+            document.getElementById('projectModal').classList.add('hidden');
+        }
+    </script>
+    
+<script>
+  // 1. Fungsi Toggle Dark Mode
+  function toggleDarkMode() {
+    document.documentElement.classList.toggle('dark');
+    const isDark = document.documentElement.classList.contains('dark');
+    
+    if (isDark) {
+      document.body.style.backgroundColor = "#121212";
+      document.body.style.backgroundImage = "none";
+      
+      document.querySelectorAll('.clay-card, .bg-white, section > div > div').forEach(el => {
+        el.style.backgroundColor = "#1e1e1e";
+        el.style.borderColor = "#333333";
+      });
+
+      document.querySelectorAll('input, textarea, select, #kontak div, .rounded-2xl, .rounded-xl').forEach(box => {
+        if (!box.closest('nav') && !box.classList.contains('btn-cute')) {
+          box.style.backgroundColor = "#2a2a2a";
+          box.style.borderColor = "#444444";
+        }
+      });
+
+      // Tombol Lihat Proyek KECUALIKAN agar tetap pink cantik di mode malam
+      document.querySelectorAll('a[href="#proyek"]').forEach(btn => {
+        if (!btn.classList.contains('nav-link')) {
+          btn.style.backgroundColor = "#ec4899"; // Tetap pink terang
+          btn.style.borderColor = "#db2777";
+          btn.style.color = "#ffffff"; // Teks putih bersih
+        }
+      });
+
+      document.querySelectorAll('p, span, h1, h2, h3, h4, label, a:not(.nav-link), i, td, th').forEach(el => {
+        if (!el.classList.contains('text-pink-600') && 
+            !el.classList.contains('text-pink-500') && 
+            !el.classList.contains('text-pinky-600') && 
+            !el.classList.contains('btn-cute') &&
+            !el.closest('a[href="#proyek"]') &&
+            el.getAttribute('href') !== '#proyek') {
+          el.style.color = "#ff94b8";
+        }
+      });
+
+// Membuat ikon logo keahlian jadi terang/pink di mode malam
+        document.querySelectorAll('#keahlian i, .w-10.h-10 i, .w-12.h-12 i, #keahlian .rounded-full i, section#keahlian i').forEach(icon => {
+          icon.style.color = "#ff94b8";
+        });
+    } else {
+      document.body.style.backgroundColor = "";
+      document.body.style.backgroundImage = "";
+      
+      document.querySelectorAll('.clay-card, .bg-white, section > div > div, input, textarea, select, #kontak div, .rounded-2xl, .rounded-xl').forEach(el => {
+        el.style.backgroundColor = "";
+        el.style.borderColor = "";
+      });
+
+      document.querySelectorAll('a[href="#proyek"]').forEach(btn => {
+        btn.style.backgroundColor = "";
+        btn.style.borderColor = "";
+        btn.style.color = "";
+      });
+
+      document.querySelectorAll('p, span, h1, h2, h3, h4, label, a:not(.nav-link), i, td, th').forEach(el => {
+        el.style.color = "";
+      });
+    }
+
+    updateNavIndicator();
+  }
+
+  // 2. Fungsi Buka/Tutup Menu HP (Hamburger Menu)
+  function toggleMobileMenu() {
+    const menu = document.getElementById('mobile-menu');
+    if (menu) {
+      menu.classList.toggle('hidden');
+    }
+  }
+
+  // 3. Fungsi Indikator Navigasi Otomatis Mengikuti Scroll
+  function updateNavIndicator() {
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('.nav-link');
+    const isDark = document.documentElement.classList.contains('dark');
+    
+    let current = 'beranda';
+    
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop;
+      if (window.scrollY >= (sectionTop - 200)) {
+        current = section.getAttribute('id');
+      }
+    });
+
+    navLinks.forEach(link => {
+      link.style.backgroundColor = "";
+      link.style.color = "";
+      link.style.padding = "";
+      link.style.borderRadius = "";
+      link.style.fontWeight = "";
+
+      if (link.getAttribute('href') === `#${current}`) {
+        link.style.fontWeight = "bold";
+        link.style.padding = "6px 14px";
+        link.style.borderRadius = "9999px";
+        
+        if (isDark) {
+          link.style.backgroundColor = "#2d2d2d";
+          link.style.color = "#ff77a9";
+        } else {
+          link.style.backgroundColor = "#ffe4e6";
+          link.style.color = "#db2777";
+        }
+      }
+    });
+  }
+
+  window.addEventListener('scroll', updateNavIndicator);
+  window.addEventListener('DOMContentLoaded', updateNavIndicator);
+</script>
+<script>
+  function toggleDarkMode() {
+    document.documentElement.classList.toggle('dark');
+    const isDark = document.documentElement.classList.contains('dark');
+    
+    if (isDark) {
+      // 1. Ubah latar belakang utama jadi hitam pekat
+      document.body.style.backgroundColor = "#121212";
+      document.body.style.backgroundImage = "none";
+      
+      // 2. Ubah semua kotak kartu utama & navigasi jadi hitam elegan
+      document.querySelectorAll('.clay-card, .bg-white, section > div > div').forEach(el => {
+        el.style.backgroundColor = "#1e1e1e";
+        el.style.borderColor = "#333333";
+      });
+
+      // 3. Ubah semua form input, textarea, select, & kotak putih di dalam kontak/sticky note jadi gelap
+      document.querySelectorAll('input, textarea, select, #kontak div, .rounded-2xl, .rounded-xl').forEach(box => {
+        if (!box.closest('nav') && !box.classList.contains('btn-cute')) {
+          box.style.backgroundColor = "#2a2a2a";
+          box.style.borderColor = "#444444";
+        }
+      });
+
+      // 4. Paksa SEMUA TEKS & LOGO IKON di seluruh halaman jadi PUTIH TERANG (kecuali teks pink)
+      document.querySelectorAll('p, span, h1, h2, h3, h4, label, a, i, td, th').forEach(el => {
+        // Abaikan tombol pink dan teks bermerek pink agar aksen cantiknya tidak hilang
+        if (!el.classList.contains('text-pink-600') && 
+            !el.classList.contains('text-pink-500') && 
+            !el.classList.contains('text-pinky-600') && 
+            !el.classList.contains('btn-cute') &&
+            !el.closest('nav a')) {
+          el.style.color = "#ffffff";
+        }
+      });
+
+      // 5. Khusus ikon di dalam lingkaran pink (keahlian), beri warna gelap tegas agar kontras
+      document.querySelectorAll('#keahlian i, .w-10.h-10 i, .w-12.h-12 i').forEach(icon => {
+        icon.style.color = "#121212";
+      });
+
+    } else {
+      // Mengembalikan ke mode terang semula saat tombol diklik lagi
+      document.body.style.backgroundColor = "";
+      document.body.style.backgroundImage = "";
+      
+      document.querySelectorAll('.clay-card, .bg-white, section > div > div, input, textarea, select, #kontak div, .rounded-2xl, .rounded-xl').forEach(el => {
+        el.style.backgroundColor = "";
+        el.style.borderColor = "";
+      });
+
+      document.querySelectorAll('p, span, h1, h2, h3, h4, label, a, i, td, th').forEach(el => {
+        el.style.color = "";
+      });
+    }
+  }
+</script>
+<script>
+  function toggleDarkMode() {
+    document.documentElement.classList.toggle('dark');
+    const isDark = document.documentElement.classList.contains('dark');
+    
+    if (isDark) {
+      // 1. Ubah latar belakang utama jadi hitam pekat
+      document.body.style.backgroundColor = "#121212";
+      document.body.style.backgroundImage = "none";
+      
+      // 2. Ubah semua kotak kartu utama & navigasi jadi hitam elegan
+      document.querySelectorAll('.clay-card, .bg-white, section > div > div').forEach(el => {
+        el.style.backgroundColor = "#1e1e1e";
+        el.style.borderColor = "#333333";
+      });
+
+      // 3. Ubah semua form input, textarea, select, & kotak putih jadi gelap
+      document.querySelectorAll('input, textarea, select, #kontak div, .rounded-2xl, .rounded-xl').forEach(box => {
+        if (!box.closest('nav') && !box.classList.contains('btn-cute')) {
+          box.style.backgroundColor = "#2a2a2a";
+          box.style.borderColor = "#444444";
+        }
+      });
+
+      // 4. Tombol "Lihat Proyek" jadi gelap dengan teks pink yang cantik
+      document.querySelectorAll('a[href="#proyek"]').forEach(btn => {
+        btn.style.backgroundColor = "#2a2a2a";
+        btn.style.borderColor = "#555555";
+        btn.style.color = "#ff77a9"; // Warna pink terang
+      });
+
+      // 5. Ubah SEMUA TEKS & DESKRIPSI di halaman menjadi WARNA PINK LEMBUT yang terang & jelas
+      document.querySelectorAll('p, span, h1, h2, h3, h4, label, a, i, td, th').forEach(el => {
+        if (!el.classList.contains('text-pink-600') && 
+            !el.classList.contains('text-pink-500') && 
+            !el.classList.contains('text-pinky-600') && 
+            !el.classList.contains('btn-cute') &&
+            !el.closest('nav a') &&
+            el.getAttribute('href') !== '#proyek') {
+          el.style.color = "#ff94b8"; // Pink pastel terang yang sangat kontras dan jelas di latar hitam
+        }
+      });
+
+      // 6. Khusus ikon di dalam lingkaran pink (keahlian), beri warna gelap tegas
+      document.querySelectorAll('#keahlian i, .w-10.h-10 i, .w-12.h-12 i').forEach(icon => {
+        icon.style.color = "#121212";
+      });
+
+    } else {
+      // Mengembalikan ke mode terang semula saat tombol diklik lagi
+      document.body.style.backgroundColor = "";
+      document.body.style.backgroundImage = "";
+      
+      document.querySelectorAll('.clay-card, .bg-white, section > div > div, input, textarea, select, #kontak div, .rounded-2xl, .rounded-xl').forEach(el => {
+        el.style.backgroundColor = "";
+        el.style.borderColor = "";
+      });
+
+      document.querySelectorAll('a[href="#proyek"]').forEach(btn => {
+        btn.style.backgroundColor = "";
+        btn.style.borderColor = "";
+        btn.style.color = "";
+      });
+
+      document.querySelectorAll('p, span, h1, h2, h3, h4, label, a, i, td, th').forEach(el => {
+        el.style.color = "";
+      });
+    }
+  }
+</script>
+<script>
+  // 1. Fungsi Toggle Dark Mode
+  function toggleDarkMode() {
+    document.documentElement.classList.toggle('dark');
+    const isDark = document.documentElement.classList.contains('dark');
+    
+    if (isDark) {
+      document.body.style.backgroundColor = "#121212";
+      document.body.style.backgroundImage = "none";
+      
+      document.querySelectorAll('.clay-card, .bg-white, section > div > div').forEach(el => {
+        el.style.backgroundColor = "#1e1e1e";
+        el.style.borderColor = "#333333";
+      });
+
+      document.querySelectorAll('input, textarea, select, #kontak div, .rounded-2xl, .rounded-xl').forEach(box => {
+        if (!box.closest('nav') && !box.classList.contains('btn-cute')) {
+          box.style.backgroundColor = "#2a2a2a";
+          box.style.borderColor = "#444444";
+        }
+      });
+
+      document.querySelectorAll('a[href="#proyek"]').forEach(btn => {
+        if (!btn.classList.contains('nav-link')) {
+          btn.style.backgroundColor = "#2a2a2a";
+          btn.style.borderColor = "#555555";
+          btn.style.color = "#ff77a9";
+        }
+      });
+
+      document.querySelectorAll('p, span, h1, h2, h3, h4, label, a:not(.nav-link), i, td, th').forEach(el => {
+        if (!el.classList.contains('text-pink-600') && 
+            !el.classList.contains('text-pink-500') && 
+            !el.classList.contains('text-pinky-600') && 
+            !el.classList.contains('btn-cute') &&
+            el.getAttribute('href') !== '#proyek') {
+          el.style.color = "#ff94b8";
+        }
+      });
+
+      document.querySelectorAll('#keahlian i, .w-10.h-10 i, .w-12.h-12 i').forEach(icon => {
+        icon.style.color = "#121212";
+      });
+
+    } else {
+      document.body.style.backgroundColor = "";
+      document.body.style.backgroundImage = "";
+      
+      document.querySelectorAll('.clay-card, .bg-white, section > div > div, input, textarea, select, #kontak div, .rounded-2xl, .rounded-xl').forEach(el => {
+        el.style.backgroundColor = "";
+        el.style.borderColor = "";
+      });
+
+      document.querySelectorAll('a[href="#proyek"]').forEach(btn => {
+        btn.style.backgroundColor = "";
+        btn.style.borderColor = "";
+        btn.style.color = "";
+      });
+
+      document.querySelectorAll('p, span, h1, h2, h3, h4, label, a:not(.nav-link), i, td, th').forEach(el => {
+        el.style.color = "";
+      });
+    }
+
+    // Perbarui warna indikator nav saat mode diganti
+    updateNavIndicator();
+  }
+
+  // 2. Fungsi Utama Indikator Navigasi Mengikuti Scroll & Mode
+  function updateNavIndicator() {
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('.nav-link');
+    const isDark = document.documentElement.classList.contains('dark');
+    
+    let current = 'beranda';
+    
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop;
+      if (window.scrollY >= (sectionTop - 200)) {
+        current = section.getAttribute('id');
+      }
+    });
+
+    navLinks.forEach(link => {
+      // Reset style bawaan menu
+      link.style.backgroundColor = "";
+      link.style.color = "";
+      link.style.padding = "";
+      link.style.borderRadius = "";
+      link.style.fontWeight = "";
+
+      if (link.getAttribute('href') === `#${current}`) {
+        link.style.fontWeight = "bold";
+        link.style.padding = "6px 14px";
+        link.style.borderRadius = "9999px";
+        
+        if (isDark) {
+          // Warna latar kapsul abu gelap elegan & teks pink terang menyala di mode gelap
+          link.style.backgroundColor = "#2d2d2d";
+          link.style.color = "#ff77a9";
+        } else {
+          // Warna latar kapsul pink lembut & teks pink tua di mode terang
+          link.style.backgroundColor = "#ffe4e6";
+          link.style.color = "#db2777";
+        }
+      }
+    });
+  }
+
+  // Jalankan saat halaman di-scroll
+  window.addEventListener('scroll', updateNavIndicator);
+  
+  // Jalankan sekali saat halaman pertama kali dimuat
+  window.addEventListener('DOMContentLoaded', updateNavIndicator);
+</script>
+<script>
+  // 1. Fungsi Toggle Dark Mode
+  function toggleDarkMode() {
+    document.documentElement.classList.toggle('dark');
+    const isDark = document.documentElement.classList.contains('dark');
+    
+    if (isDark) {
+      document.body.style.backgroundColor = "#121212";
+      document.body.style.backgroundImage = "none";
+      
+      document.querySelectorAll('.clay-card, .bg-white, section > div > div').forEach(el => {
+        el.style.backgroundColor = "#1e1e1e";
+        el.style.borderColor = "#333333";
+      });
+
+      document.querySelectorAll('input, textarea, select, #kontak div, .rounded-2xl, .rounded-xl').forEach(box => {
+        if (!box.closest('nav') && !box.classList.contains('btn-cute')) {
+          box.style.backgroundColor = "#2a2a2a";
+          box.style.borderColor = "#444444";
+        }
+      });
+
+      document.querySelectorAll('a[href="#proyek"]').forEach(btn => {
+        if (!btn.classList.contains('nav-link')) {
+          btn.style.backgroundColor = "#2a2a2a";
+          btn.style.borderColor = "#555555";
+          btn.style.color = "#ff77a9";
+        }
+      });
+
+      document.querySelectorAll('p, span, h1, h2, h3, h4, label, a:not(.nav-link), i, td, th').forEach(el => {
+        if (!el.classList.contains('text-pink-600') && 
+            !el.classList.contains('text-pink-500') && 
+            !el.classList.contains('text-pinky-600') && 
+            !el.classList.contains('btn-cute') &&
+            el.getAttribute('href') !== '#proyek') {
+          el.style.color = "#ff94b8";
+        }
+      });
+
+      document.querySelectorAll('#keahlian i, .w-10.h-10 i, .w-12.h-12 i').forEach(icon => {
+        icon.style.color = "#121212";
+      });
+
+    } else {
+      document.body.style.backgroundColor = "";
+      document.body.style.backgroundImage = "";
+      
+      document.querySelectorAll('.clay-card, .bg-white, section > div > div, input, textarea, select, #kontak div, .rounded-2xl, .rounded-xl').forEach(el => {
+        el.style.backgroundColor = "";
+        el.style.borderColor = "";
+      });
+
+      document.querySelectorAll('a[href="#proyek"]').forEach(btn => {
+        btn.style.backgroundColor = "";
+        btn.style.borderColor = "";
+        btn.style.color = "";
+      });
+
+      document.querySelectorAll('p, span, h1, h2, h3, h4, label, a:not(.nav-link), i, td, th').forEach(el => {
+        el.style.color = "";
+      });
+    }
+
+    updateNavIndicator();
+  }
+
+  // 2. Fungsi Buka/Tutup Menu HP (Hamburger Menu)
+  function toggleMobileMenu() {
+    const menu = document.getElementById('mobile-menu');
+    if (menu) {
+      menu.classList.toggle('hidden');
+    }
+  }
+
+  // 3. Fungsi Indikator Navigasi Otomatis Mengikuti Scroll
+  function updateNavIndicator() {
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('.nav-link');
+    const isDark = document.documentElement.classList.contains('dark');
+    
+    let current = 'beranda';
+    
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop;
+      if (window.scrollY >= (sectionTop - 200)) {
+        current = section.getAttribute('id');
+      }
+    });
+
+    navLinks.forEach(link => {
+      link.style.backgroundColor = "";
+      link.style.color = "";
+      link.style.padding = "";
+      link.style.borderRadius = "";
+      link.style.fontWeight = "";
+
+      if (link.getAttribute('href') === `#${current}`) {
+        link.style.fontWeight = "bold";
+        link.style.padding = "6px 14px";
+        link.style.borderRadius = "9999px";
+        
+        if (isDark) {
+          link.style.backgroundColor = "#2d2d2d";
+          link.style.color = "#ff77a9";
+        } else {
+          link.style.backgroundColor = "#ffe4e6";
+          link.style.color = "#db2777";
+        }
+      }
+    });
+  }
+
+  window.addEventListener('scroll', updateNavIndicator);
+  window.addEventListener('DOMContentLoaded', updateNavIndicator);
+  
+</script>
+</body>
+</html>
