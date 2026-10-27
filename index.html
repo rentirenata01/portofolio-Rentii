@@ -219,12 +219,13 @@
       </div>
     </nav>   
    </div>
-<!-- HERO SECTION -->
+      
+        <!-- HERO SECTION (KEMBALI NORMAL & RAPI) -->
   <section id="beranda" class="max-w-6xl mx-auto px-4 pt-10 pb-16 min-h-[85vh] flex items-center">
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center w-full">
       
       <!-- Kiri: Teks Perkenalan -->
-      <div class="lg:col-span-7 text-center px-14  lg:text-left space-y-5  ">
+       <div class="lg:col-span-7 text-center lg:text-left space-y-5 bg-transparent">
         <div class="inline-flex items-center gap-2 bg-pink-100 text-pink-600 px-4 py-2 rounded-full font-medium text-sm shadow-sm">
           <span>🌸</span> Student & PKL Trainee @ SMKN Manonjaya
         </div>
@@ -237,35 +238,49 @@
           Siswi SMKN Manonjaya yang ceria, penuh semangat, dan sedang menjalankan kegiatan PKL (Prakerin) di Access Media Tasikmalaya. Suka eksplorasi Pemrograman Web & Desain Grafis.
         </p>
 
-        <!-- Tombol Aksi (Keduanya Pink Solid & Konsisten) -->
         <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
-          <!-- Tombol Lihat Proyek -->
           <a href="#proyek" class="btn-pink-fix bg-pink-500 text-white hover:bg-pink-600 px-6 py-3.5 rounded-2xl font-bold text-sm shadow-md flex items-center gap-2 transition">
             <i class="fa-solid fa-folder-open text-white"></i> Lihat Proyek
           </a>
-          
-          <!-- Tombol Kirim Pesan -->
           <a href="#kontak" class="btn-pink-fix bg-pink-500 text-white hover:bg-pink-600 px-6 py-3.5 rounded-2xl font-bold text-sm shadow-md flex items-center gap-2 transition">
             <i class="fa-solid fa-paper-plane text-white"></i> Kirim Pesan
           </a>
         </div>
       </div>
 
-      <!-- Kanan: Kotak Foto Wajah (Tetap rapi di atas/samping teks) -->
-      <div class="lg:col-span-5 flex justify-center">
-        <div class="w-full max-w-sm rounded-3xl p-4 text-center shadow-xl overflow-hidden bg-white border-2 border-pink-200">
-          <div class="w-full h-80 rounded-2xl overflow-hidden shadow-inner border-2 border-pink-100">
-            <img src="foto-renti.jpg.jpeg" alt="Foto Renti Renata" class="w-full h-full object-cover">
+      <!-- Kanan: Kolase Foto Scrapbook Estetik -->
+      <div class="lg:col-span-5 flex justify-center relative">
+        <div class="relative w-full max-w-sm h-[400px] flex items-center justify-center">
+          
+          <div class="absolute -top-4 -left-4 w-32 h-40 bg-white p-2 pb-6 shadow-md rotate-[-12deg] rounded-lg border border-pink-100 z-0">
+            <img src="foto-renti.jpg.jpeg" alt="Renti Renata" class="w-full h-full object-cover rounded-sm filter brightness-95">
+            <span class="text-[9px] font-fredoka text-pink-500 block text-center mt-1">✨ Renti PKL</span>
           </div>
-          <p class="text-xs font-bold text-pink-600 mt-3 font-fredoka flex items-center justify-center gap-1">
-            <span>✨</span> Renti Renata - SMKN Manonjaya <span>✨</span>
-          </p>
+
+          <div class="absolute -bottom-4 -right-4 w-32 h-40 bg-white p-2 pb-6 shadow-md rotate-[15deg] rounded-lg border border-pink-100 z-0">
+            <img src="foto-renti.jpg.jpeg" alt="Renti Renata" class="w-full h-full object-cover rounded-sm filter brightness-90">
+            <span class="text-[9px] font-fredoka text-pink-500 block text-center mt-1">💻 SMKN Manonjaya</span>
+          </div>
+
+          <div class="relative w-72 bg-white p-4 pb-8 rounded-2xl shadow-2xl rotate-[-2deg] border-2 border-pink-200 z-10 hover:rotate-0 transition duration-300">
+            <div class="w-full h-72 rounded-xl overflow-hidden shadow-inner border border-pink-100">
+              <img src="foto-renti.jpg.jpeg" alt="Foto Renti Renata" class="w-full h-full object-cover">
+            </div>
+            <div class="text-center mt-3">
+              <p class="font-fredoka text-sm font-bold text-pink-600 tracking-wide">
+                Renti Renata 💖
+              </p>
+              <p class="text-[10px] text-gray-400 font-medium">Student & Developer Enthusiast</p>
+            </div>
+            <span class="absolute -top-3 right-6 text-xl">🎀</span>
+            <span class="absolute -bottom-2 left-6 text-lg">🌸</span>
+          </div>
+
         </div>
       </div>
 
     </div>
-  </section>    
-
+  </section>
           <!-- BAGIAN TENTANG SAYA -->
   <section id="tentang" class="py-16 px-4">
     <div class="max-w-4xl mx-auto clay-card p-8 md:p-10 rounded-3xl bg-white shadow-lg">
@@ -282,10 +297,10 @@
       </div>
     </div>
   </section>
-    <!-- KEAHLIAN & FOKUS PEMBELAJARAN (BOBA METERS) -->
+    <!-- KEAHLIAN & FOKUS PEMBELAJARAN 🎀(BOBA METERS) -->
     <section id="keahlian" class="max-w-6xl mx-auto px-4 py-12">
         <div class="text-center mb-10">
-            <h2 class="font-fredoka text-3xl md:text-4xl font-bold text-gray-800">Keahlian & Pembelajaran 🧋</h2>
+            <h2 class="font-fredoka text-3xl md:text-4xl font-bold text-gray-800">Keahlian & Pembelajaran ⌨️✨</h2>
             <p class="text-gray-600 font-medium mt-1">Kemampuan yang sedang saya asah dan pelajari secara konsisten</p>
         </div>
 
@@ -953,7 +968,7 @@
       document.body.style.backgroundColor = "#121212";
       document.body.style.backgroundImage = "none";
       
-      document.querySelectorAll('.clay-card, .bg-white, section > div > div').forEach(el => {
+      document.querySelectorAll('.clay-card, .bg-white').forEach(el => {
         el.style.backgroundColor = "#1e1e1e";
         el.style.borderColor = "#333333";
       });
@@ -1313,7 +1328,7 @@
       document.body.style.backgroundColor = "#121212";
       document.body.style.backgroundImage = "none";
       
-      document.querySelectorAll('.clay-card, .bg-white, section > div > div').forEach(el => {
+      document.querySelectorAll('.clay-card, .bg-white').forEach(el => {
         el.style.backgroundColor = "#1e1e1e";
         el.style.borderColor = "#333333";
       });
