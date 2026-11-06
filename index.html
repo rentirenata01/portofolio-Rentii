@@ -160,6 +160,7 @@
             animation: pulseGlow 2.5s infinite;
         }
     </style>
+    
 </head>
 <body class="text-gray-800">
 
@@ -289,7 +290,7 @@
       </h2>
       <div class="space-y-4 text-gray-700 leading-relaxed font-medium">
         <p>
-          Halo semuanya! Perkenalkan, nama aku <b>Renti Renata</b>. Saat ini aku adalah siswi jurusan <b>Rekayasa Perangkat Lunak (RPL)</b> di <b>SMKN Manonjaya</b> yang memiliki ketertarikan tinggi pada dunia pemrograman web dan desain antarmuka digital.
+          Halo semuanya! Perkenalkan, nama saya <b>Renti Renata</b>. Saat ini aku adalah siswi jurusan <b>Rekayasa Perangkat Lunak (RPL)</b> di <b>SMKN Manonjaya</b> yang memiliki ketertarikan tinggi pada dunia pemrograman web dan desain antarmuka digital.
         </p>
         <p>
           Melalui kegiatan pembelajaran di sekolah serta pengalaman praktik kerja, aku terus mengasah kemampuan <i>front-end development</i> (seperti HTML, CSS, Tailwind CSS, dan JavaScript) sekaligus merancang visual yang estetik. Aku percaya bahwa paduan antara logika koding yang kuat dan kreativitas seni dapat melahirkan karya website yang luar biasa! ✨
@@ -308,11 +309,13 @@
             <!-- Pemrograman Web -->
             <div class="clay-card p-6 space-y-5">
                 <div class="flex items-center gap-3 border-b border-pinky-200 pb-3">
-                    <span class="p-2.5 bg-pinky-200 rounded-2xl text-pinky-500 text-xl"><i class="fa-solid fa-code"></i></span>
+                  <span class="p-2.5 rounded-2xl text-xl flex items-center justify-center bg-pinky-200 text-pinky-600 dark:!bg-pinky-200 dark:!text-pinky-600">
+                  <i class="fa-solid fa-code font-bold"></i>
+                  </span>
                     <h3 class="font-fredoka text-xl font-bold text-gray-800">Pemrograman Web</h3>
                 </div>
 
-                <!-- Skill items with Boba style indicators -->
+                <!-- Skill it ems with Boba style indicators -->
                 <div class="space-y-4 font-fredoka">
                     <div>
                         <div class="flex justify-between text-sm mb-1">
@@ -355,7 +358,9 @@
             <!-- Desain & Software Tool -->
             <div class="clay-card p-6 space-y-5">
                 <div class="flex items-center gap-3 border-b border-pinky-200 pb-3">
-                    <span class="p-2.5 bg-pinky-200 rounded-2xl text-pinky-500 text-xl"><i class="fa-solid fa-palette"></i></span>
+                  <span class="p-2.5 rounded-2xl text-xl flex items-center justify-center bg-pinky-200 text-pinky-600 dark:!bg-pinky-200 dark:!text-pinky-600">
+                  <i class="fa-solid fa-palette font-bold"></i>
+                  </span>
                     <h3 class="font-fredoka text-xl font-bold text-gray-800">Desain & Alat Produksi</h3>
                 </div>
 
@@ -649,20 +654,64 @@
                 </div>
 
                 <!-- Input Form -->
-                <form id="guestbookForm" onsubmit="addStickyNote(event)" class="space-y-3 mb-6">
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        <input type="text" id="guestName" placeholder="Nama Kamu..." required class="w-full px-4 py-2.5 rounded-xl border-2 border-pinky-200 focus:outline-none focus:border-pinky-400 font-fredoka text-sm">
-                        <select id="noteColor" class="w-full px-4 py-2.5 rounded-xl border-2 border-pinky-200 focus:outline-none focus:border-pinky-400 font-fredoka text-sm bg-white">
-                            <option value="bg-pink-100 border-pink-300">Pink Note 🌸</option>
-                            <option value="bg-yellow-100 border-yellow-300">Yellow Note 🍋</option>
-                            <option value="bg-purple-100 border-purple-300">Purple Note 🍇</option>
-                        </select>
-                    </div>
-                    <textarea id="guestMessage" placeholder="Tuliskan pesan atau dukungan di sini..." required rows="2" class="w-full px-4 py-2.5 rounded-xl border-2 border-pinky-200 focus:outline-none focus:border-pinky-400 font-fredoka text-sm"></textarea>
-                    <button type="submit" class="clay-button text-white font-fredoka text-xs px-5 py-2.5 rounded-xl flex items-center gap-2">
-                        <i class="fa-solid fa-thumbtack"></i> Tempel Pesan
-                    </button>
-                </form>
+        <form id="guestbookForm" onsubmit="addStickyNote(event)" class="space-y-3 mb-6 relative z-50 pointer-events-auto border-0 shadow-none bg-transparent">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 relative z-50">
+            <input type="text" id="guestName" placeholder="Nama Kamu..." required class="guest-input w-full px-4 py-2.5 rounded-xl relative z-50 cursor-text pointer-events-auto transition-colors">
+            <select id="noteColor" class="guest-input w-full px-4 py-2.5 rounded-xl relative z-50 cursor-pointer pointer-events-auto transition-colors">
+              <option value="bg-pink-100 border-pink-300" class="opt-item">Pink Note 🌸</option>
+              <option value="bg-yellow-100 border-yellow-300" class="opt-item">Yellow Note 🍋</option>
+              <option value="bg-purple-100 border-purple-300" class="opt-item">Purple Note 🍇</option>
+            </select>
+          </div>
+          <textarea id="guestMessage" placeholder="Tuliskan pesan atau dukungan di sini..." required rows="3" class="guest-input w-full px-4 py-2.5 rounded-xl relative z-50 cursor-text pointer-events-auto transition-colors"></textarea>
+          <button type="submit" class="clay-button text-white font-fredoka text-xs px-5 py-2.5 rounded-xl flex items-center gap-2 hover:scale-105 transition shadow-md relative z-50 cursor-pointer pointer-events-auto">
+            <i class="fa-solid fa-thumbtack"></i> Tempel Pesan
+          </button>
+        </form>
+
+        <!-- Style Pengunci Warna & Menghilangkan Transparansi Luar -->
+        <style>
+          /* Hilangkan border/shadow dari container form */
+          #guestbookForm {
+            border: none !important;
+            box-shadow: none !important;
+            outline: none !important;
+            background: transparent !important;
+          }
+
+          .guest-input {
+            border-radius: 0.75rem !important; /* Membulat melengkung */
+            box-shadow: none !important;        /* Hilangkan bayangan luar */
+            outline: none !important;
+          }
+
+          /* Mode Terang: Putih Padat 100% */
+          .guest-input {
+            background-color: #ffffff !important;
+            background-image: none !important;
+            color: #1f2937 !important;
+            border: 1.5px solid #fbcfe8 !important; /* Border pink halus */
+          }
+          .opt-item {
+            background-color: #ffffff !important;
+            color: #1f2937 !important;
+          }
+
+          /* Mode Gelap: Hitam Padat (#262626) Serasi dengan Kotak Lain */
+          html.dark .guest-input, body.dark .guest-input {
+            background-color: #262626 !important;
+            background-image: none !important;
+            color: #ffffff !important;
+            border: 1.5px solid rgba(75, 85, 99, 0.4) !important;
+          }
+          html.dark #noteColor, body.dark #noteColor {
+            color: #f472b6 !important;
+          }
+          html.dark .opt-item, body.dark .opt-item {
+            background-color: #262626 !important;
+            color: #ffffff !important;
+          }
+        </style>
 
                 <!-- Sticky Notes Display Grid -->
                 <div id="stickyBoard" class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-h-72 overflow-y-auto p-2">
@@ -716,9 +765,9 @@
 
                 <!-- Social Icons -->
                 <div class="flex justify-center gap-4 pt-4 border-t border-pinky-200">
-                    <a href="#" onclick="playSound('click')" class="w-10 h-10 rounded-xl bg-pinky-200 text-pinky-600 flex items-center justify-center hover:bg-pinky-500 hover:text-white transition"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="#" onclick="playSound('click')" class="w-10 h-10 rounded-xl bg-pinky-200 text-pinky-600 flex items-center justify-center hover:bg-pinky-500 hover:text-white transition"><i class="fa-brands fa-github"></i></a>
-                    <a href="#" onclick="playSound('click')" class="w-10 h-10 rounded-xl bg-pinky-200 text-pinky-600 flex items-center justify-center hover:bg-pinky-500 hover:text-white transition"><i class="fa-brands fa-whatsapp"></i></a>
+                  <a href="https://www.instagram.com/renataaaa_ren?rpxt=OTUyemY0enh2ZXQw" target="_blank" onclick="playSound('click')" class="w-10 h-10 rounded-xl bg-pinky-200 text-pinky-600 dark:!bg-pinky-200 dark:!text-pinky-600 flex items-center justify-center hover:bg-pinky-500 hover:text-white transition"><i class="fa-brands fa-instagram text-lg"></i></a>
+                  <a href="https://github.com/username_github_kamu" target="_blank" onclick="playSound('click')" class="w-10 h-10 rounded-xl bg-pinky-200 text-pinky-600 dark:!bg-pinky-200 dark:!text-pinky-600 flex items-center justify-center hover:bg-pinky-500 hover:text-white transition"><i class="fa-brands fa-github text-lg"></i></a>
+                  <a href="https://wa.me/6283151696699" target="_blank" onclick="playSound('click')" class="w-10 h-10 rounded-xl bg-pinky-200 text-pinky-600 dark:!bg-pinky-200 dark:!text-pinky-600 flex items-center justify-center hover:bg-pinky-500 hover:text-white transition"><i class="fa-brands fa-whatsapp text-lg"></i></a>
                 </div>
             </div>
 
@@ -727,7 +776,7 @@
 
     <!-- FOOTER -->
     <footer class="text-center py-8 font-fredoka text-xs text-pinky-600">
-        <p>Dibuat dengan 💖 & ✨ oleh <b>Renti Renata</b> — Siswi PKL SMKN Manonjaya</p>
+        <p>Dibuat dengan <b>Renti Renata💖</b> — Siswi PKL SMKN Manonjaya</p>
         <p class="mt-1 text-gray-400">© 2026 Access Media Tasikmalaya. All Rights Reserved.</p>
     </footer>
 
@@ -1435,5 +1484,136 @@
   window.addEventListener('DOMContentLoaded', updateNavIndicator);
   
 </script>
+<!-- Kode Guestbook LocalStorage -->
+    <script>
+        // 1. Dijalankan saat halaman pertama kali dibuka/di-refresh
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedNotes = JSON.parse(localStorage.getItem('guestbook_notes')) || [];
+            savedNotes.forEach(note => {
+                tampilkanNoteKeLayar(note.name, note.message, note.color);
+            });
+        });
+
+        // 2. Fungsi saat tombol "Tempel Pesan" diklik
+        function addStickyNote(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('guestName').value;
+            const color = document.getElementById('noteColor').value;
+            const message = document.querySelector('textarea') ? document.querySelector('textarea').value : '';
+
+            if (!name || !message) return;
+
+            // Tampilkan di layar
+            tampilkanNoteKeLayar(name, message, color);
+
+            // SIMPAN KE BROWSER (supaya pas di-refresh TIDAK HILANG)
+            const savedNotes = JSON.parse(localStorage.getItem('guestbook_notes')) || [];
+            savedNotes.push({ name: name, message: message, color: color });
+            localStorage.setItem('guestbook_notes', JSON.stringify(savedNotes));
+
+            // Reset isi form
+            document.getElementById('guestbookForm').reset();
+        }
+
+        // 3. Fungsi penunjang untuk membuat kotak note di layar
+        function tampilkanNoteKeLayar(name, message, color) {
+            const container = document.getElementById('notesContainer') || document.querySelector('#guestbookForm').nextElementSibling;
+            if (!container) return;
+
+            const noteDiv = document.createElement('div');
+            noteDiv.className = `p-4 rounded-2xl border ${color} shadow-sm relative group mb-3`;
+            noteDiv.innerHTML = `
+                <span class="absolute top-2 right-2 text-xs">📌</span>
+                <h4 class="font-bold text-gray-800 text-sm">${name}</h4>
+                <p class="text-xs text-gray-600 mt-1">"${message}"</p>
+            `;
+            container.appendChild(noteDiv);
+        }
+        // 1. Fungsi untuk Menampilkan Semua Pesan dari localStorage saat Halaman Dimuat
+function renderGuestbookNotes() {
+    const stickyBoard = document.getElementById('stickyBoard');
+    if (!stickyBoard) return;
+
+    // Ambil data dari localStorage, jika kosong gunakan array kosong
+    const notes = JSON.parse(localStorage.getItem('guestbook_notes')) || [];
+
+    // Jika ada catatan bawaan HTML sebelumnya, kita gabungkan atau tampilkan notes
+    let notesHTML = '';
+
+    notes.forEach((note) => {
+        notesHTML += `
+          <div class="clay-card p-4 rounded-xl border border-gray-600/40 relative transform hover:-translate-y-1 transition duration-300 ${note.color}">
+            <i class="fa-solid fa-thumbtack absolute top-3 right-3 text-red-500 transform rotate-45"></i>
+            <h4 class="font-bold text-gray-800 text-sm mb-1">${note.name}</h4>
+            <p class="text-xs text-gray-700 italic">"${note.message}"</p>
+          </div>
+        `;
+    });
+
+    // Tempelkan HTML ke dalam papan stickyBoard
+    stickyBoard.innerHTML = notesHTML;
+}
+
+// 2. Fungsi untuk Menambah Pesan Baru saat Tombol "Tempel Pesan" Diklik
+function addStickyNote(event) {
+    event.preventDefault();
+
+    const nameInput = document.getElementById('guestName');
+    const messageInput = document.getElementById('guestMessage');
+    const colorSelect = document.getElementById('noteColor');
+
+    const name = nameInput.value.trim();
+    const message = messageInput.value.trim();
+    const colorClass = colorSelect.value;
+
+    if (!name || !message) return;
+
+    // Objek pesan baru
+    const newNote = {
+        name: name,
+        message: message,
+        color: colorClass
+    };
+
+    // Ambil data lama, tambahkan data baru ke paling atas
+    let notes = JSON.parse(localStorage.getItem('guestbook_notes')) || [];
+    notes.unshift(newNote);
+
+    // Simpan kembali ke localStorage
+    localStorage.setItem('guestbook_notes', JSON.stringify(notes));
+
+    // Reset isi kolom form
+    nameInput.value = '';
+    messageInput.value = '';
+
+    // Render ulang papan agar pesan baru langsung muncul
+    renderGuestbookNotes();
+}
+
+// 3. Jalankan renderGuestbookNotes otomatis begitu halaman selesai dimuat (Refresh Resistant)
+document.addEventListener('DOMContentLoaded', () => {
+    // Jika localStorage masih kosong pertama kali, isi dengan sampel pesan bawaan
+    if (!localStorage.getItem('guestbook_notes')) {
+        const defaultNotes = [
+            {
+                name: 'Kak Pembimbing PKL',
+                message: 'Semangat PKL-nya Renti di Access Media! Karyanya makin keren.',
+                color: 'bg-pink-100 border-pink-300'
+            },
+            {
+                name: 'Teman SMKN Manonjaya',
+                message: 'Website portofolionya lucu banget super pinky! Sukses selalu ya!',
+                color: 'bg-yellow-100 border-yellow-300'
+            }
+        ];
+        localStorage.setItem('guestbook_notes', JSON.stringify(defaultNotes));
+    }
+
+    renderGuestbookNotes();
+});
+    </script>
+</body>
+</html>
 </body>
 </html>
