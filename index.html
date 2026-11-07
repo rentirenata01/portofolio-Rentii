@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portofolio Renti Renata | Kawaii Pink Aesthetic</title>
@@ -11,9 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts: Fredoka & Quicksand -->
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
-<!-- Library Firebase Realtime Database -->
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
     <script>
         tailwind.config = {
             theme: {
@@ -938,7 +935,7 @@
             }, 600);
         }
 
-        // Sticky Guestbook Note Addition (Database Online Firebase)
+// Sticky Guestbook Note Addition (Database Online Firebase)
       const firebaseConfig = {
         databaseURL: "https://sticky-guestbook-default-rtdb.asia-southeast1.firebasedatabase.app/"
       };
@@ -949,7 +946,18 @@
       const db = firebase.database();
       const notesRef = db.ref('sticky_notes');
 
-      // Tampilkan pesan realtime otomatis dari pengunjung lain
+      // Fungsi Pengaman Karakter
+      function escapeHtml(text) {
+        if (!text) return '';
+        return String(text)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#039;");
+      }
+
+      // Tampilkan pesan realtime dari database online
       notesRef.on('value', (snapshot) => {
         const board = document.getElementById('stickyBoard');
         if (!board) return;
@@ -975,21 +983,27 @@
         }
       });
 
-      // Simpan Pesan Baru ke Cloud Database Firebase
+      // Simpan Pesan Baru ke Online Database
       function addStickyNote(e) {
-        e.preventDefault();
-        playSound('click');
+        if (e) e.preventDefault();
+        if (typeof playSound === 'function') playSound('click');
 
         const nameInput = document.getElementById('guestName');
         const msgInput = document.getElementById('guestMessage');
         const colorInput = document.getElementById('noteColor');
 
-        if (!nameInput.value.trim() || !msgInput.value.trim()) return;
+        if (!nameInput || !msgInput) return;
+
+        const nameValue = nameInput.value.trim();
+        const msgValue = msgInput.value.trim();
+        const colorValue = colorInput ? colorInput.value : 'bg-pink-100 border-pink-300';
+
+        if (!nameValue || !msgValue) return;
 
         notesRef.push({
-          name: nameInput.value.trim(),
-          message: msgInput.value.trim(),
-          color: colorInput.value,
+          name: nameValue,
+          message: msgValue,
+          color: colorValue,
           timestamp: Date.now()
         }).then(() => {
           nameInput.value = '';
@@ -998,6 +1012,31 @@
           alert("Gagal menempelkan pesan, periksa koneksi internet!");
         });
       }
+        function escapeHtml(text) {
+            return text.replace(/[&<>"']/g, function(m) { return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]; });
+        }
+
+        // Project Modal Handling
+        const projectData = {
+            'AccessMedia': {
+                title: "Redesain Website Access Media 🌸",
+                badge: "Proyek PKL",
+                desc: "Selama menjalani PKL di Access Media Tasikmalaya, Renti merancang ulang tampilan antarmuka (UI) dashboard situs utama menggunakan Tailwind CSS agar lebih modern, ringan, dan estetik.",
+                tools: ["Tailwind CSS", "HTML5", "Responsive Web Design"]
+            },
+            'CompanyProfile': {
+                title: "Desain Company Profile Canva 🎨",
+                badge: "Proyek Desain",
+                desc: "Perancangan dokumen profil perusahaan interaktif dan menarik berbasis Canva. Mengutamakan kerapihan tata letak, keselarasan warna pastel, dan kejelasan informasi.",
+                tools: ["Canva", "Branding Visual", "Microsoft PowerPoint"]
+            },
+            'Laundry': {
+                title: "Aplikasi Pengelolaan Laundry 🧺",
+                badge: "Tugas SMK",
+                desc: "Aplikasi berbasis web sederhana buatan Renti di SMKN Manonjaya untuk mencatat pesanan, menghitung total biaya cucian, dan memantau status pengerjaan pakaian secara sistematis.",
+                tools: ["HTML5 / CSS3", "JavaScript Logic", "PHP Dasar"]
+            }
+        };
 
         function openProjectModal(key) {
             playSound('click');
