@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portofolio Renti Renata | Kawaii Pink Aesthetic</title>
@@ -10,7 +11,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts: Fredoka & Quicksand -->
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
-
+<!-- Library Firebase Realtime Database -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -935,53 +938,66 @@
             }, 600);
         }
 
-        // Sticky Guestbook Note Addition
-        function addStickyNote(e) {
-            e.preventDefault();
-            playSound('click');
+        // Sticky Guestbook Note Addition (Database Online Firebase)
+      const firebaseConfig = {
+        databaseURL: "https://sticky-guestbook-default-rtdb.asia-southeast1.firebasedatabase.app/"
+      };
+      
+      if (!firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig);
+      }
+      const db = firebase.database();
+      const notesRef = db.ref('sticky_notes');
 
-            const name = document.getElementById('guestName').value;
-            const message = document.getElementById('guestMessage').value;
-            const color = document.getElementById('noteColor').value;
-            const board = document.getElementById('stickyBoard');
+      // Tampilkan pesan realtime otomatis dari pengunjung lain
+      notesRef.on('value', (snapshot) => {
+        const board = document.getElementById('stickyBoard');
+        if (!board) return;
+        
+        board.innerHTML = ''; 
+        const data = snapshot.val();
 
-            const note = document.createElement('div');
-            note.className = `p-4 rounded-2xl border-2 ${color} shadow-sm relative rotate-1 hover:rotate-0 transition animate-fade-in`;
-            note.innerHTML = `
-                <span class="absolute top-2 right-2 text-xs">📌</span>
-                <p class="font-fredoka text-xs font-bold text-gray-800">${escapeHtml(name)}</p>
-                <p class="text-xs text-gray-700 mt-1">"${escapeHtml(message)}"</p>
+        if (data) {
+          Object.keys(data).forEach(key => {
+            const note = data[key];
+            const noteDiv = document.createElement('div');
+            
+            noteDiv.className = `${note.color || 'bg-pink-100 border-pink-300'} p-4 rounded-2xl border-2 shadow-sm relative rotate-1 hover:rotate-0 transition duration-300`;
+            noteDiv.innerHTML = `
+              <span class="absolute top-2 right-2 text-xs">📌</span>
+              <p class="font-fredoka text-xs font-bold text-gray-800">${escapeHtml(note.name)}</p>
+              <p class="text-xs text-gray-700 mt-1 break-words">"${escapeHtml(note.message)}"</p>
             `;
-
-            board.prepend(note);
-            document.getElementById('guestbookForm').reset();
+            board.appendChild(noteDiv);
+          });
+        } else {
+          board.innerHTML = '<p class="text-xs text-gray-400 italic col-span-2 text-center">Belum ada pesan. Jadi yang pertama menempelkan pesan!</p>';
         }
+      });
 
-        function escapeHtml(text) {
-            return text.replace(/[&<>"']/g, function(m) { return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]; });
-        }
+      // Simpan Pesan Baru ke Cloud Database Firebase
+      function addStickyNote(e) {
+        e.preventDefault();
+        playSound('click');
 
-        // Project Modal Handling
-        const projectData = {
-            'AccessMedia': {
-                title: "Redesain Website Access Media 🌸",
-                badge: "Proyek PKL",
-                desc: "Selama menjalani PKL di Access Media Tasikmalaya, Renti merancang ulang tampilan antarmuka (UI) dashboard situs utama menggunakan Tailwind CSS agar lebih modern, ringan, dan estetik.",
-                tools: ["Tailwind CSS", "HTML5", "Responsive Web Design"]
-            },
-            'CompanyProfile': {
-                title: "Desain Company Profile Canva 🎨",
-                badge: "Proyek Desain",
-                desc: "Perancangan dokumen profil perusahaan interaktif dan menarik berbasis Canva. Mengutamakan kerapihan tata letak, keselarasan warna pastel, dan kejelasan informasi.",
-                tools: ["Canva", "Branding Visual", "Microsoft PowerPoint"]
-            },
-            'Laundry': {
-                title: "Aplikasi Pengelolaan Laundry 🧺",
-                badge: "Tugas SMK",
-                desc: "Aplikasi berbasis web sederhana buatan Renti di SMKN Manonjaya untuk mencatat pesanan, menghitung total biaya cucian, dan memantau status pengerjaan pakaian secara sistematis.",
-                tools: ["HTML5 / CSS3", "JavaScript Logic", "PHP Dasar"]
-            }
-        };
+        const nameInput = document.getElementById('guestName');
+        const msgInput = document.getElementById('guestMessage');
+        const colorInput = document.getElementById('noteColor');
+
+        if (!nameInput.value.trim() || !msgInput.value.trim()) return;
+
+        notesRef.push({
+          name: nameInput.value.trim(),
+          message: msgInput.value.trim(),
+          color: colorInput.value,
+          timestamp: Date.now()
+        }).then(() => {
+          nameInput.value = '';
+          msgInput.value = '';
+        }).catch(err => {
+          alert("Gagal menempelkan pesan, periksa koneksi internet!");
+        });
+      }
 
         function openProjectModal(key) {
             playSound('click');
