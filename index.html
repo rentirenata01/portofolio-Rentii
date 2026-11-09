@@ -956,7 +956,7 @@
           .replace(/'/g, "&#039;");
       }
 
-      // Tampilkan pesan realtime dari database online
+        // Tampilkan pesan realtime dari database online (Urut dari lama ke baru)
       notesRef.on('value', (snapshot) => {
         const board = document.getElementById('stickyBoard');
         if (!board) return;
@@ -965,8 +965,17 @@
         const data = snapshot.val();
 
         if (data) {
-          Object.keys(data).forEach(key => {
-            const note = data[key];
+          // Mengubah data Firebase menjadi array
+          const notesArray = Object.keys(data).map(key => ({
+            id: key,
+            ...data[key]
+          }));
+
+          // Urutkan berdasarkan waktu kirim (pesan baru berada di paling bawah)
+          notesArray.sort((a, b) => (a.timestamp || 0) - (b.timestamp || 0));
+
+          // Menampilkan pesan ke dalam papan
+          notesArray.forEach(note => {
             const noteDiv = document.createElement('div');
             
             noteDiv.className = `${note.color || 'bg-pink-100 border-pink-300'} p-4 rounded-2xl border-2 shadow-sm relative rotate-1 hover:rotate-0 transition duration-300`;
@@ -975,13 +984,17 @@
               <p class="font-fredoka text-xs font-bold text-gray-800">${escapeHtml(note.name)}</p>
               <p class="text-xs text-gray-700 mt-1 break-words">"${escapeHtml(note.message)}"</p>
             `;
+            
             board.appendChild(noteDiv);
           });
+
+          // Otomatis scroll papan ke posisi pesan paling bawah
+          board.scrollTop = board.scrollHeight;
+
         } else {
           board.innerHTML = '<p class="text-xs text-gray-400 italic col-span-2 text-center">Belum ada pesan. Jadi yang pertama menempelkan pesan!</p>';
         }
       });
-
       // Simpan Pesan Baru ke Online Database
       function addStickyNote(e) {
         if (e) e.preventDefault();
