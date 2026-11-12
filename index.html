@@ -51,11 +51,6 @@
                             '0%, 100%': { opacity: 0.35, transform: 'scale(1)' },
                             '50%': { opacity: 0.75, transform: 'scale(1.12)' },
                         },
-                        spinSlow: {
-                            '0%': { transform: 'rotate(0deg)' },
-                            '100%': { transform: 'rotate(360deg)' },
-                        },
-                        /* Animasi Tangan Menunjuk & Mengajak Membuka Buku */
                         handNudge: {
                             '0%, 100%': { transform: 'translate(0px, 0px) rotate(-12deg) scale(1)' },
                             '40%': { transform: 'translate(-14px, -6px) rotate(-20deg) scale(0.92)' },
@@ -65,7 +60,6 @@
                     animation: {
                         'float-slow': 'floatSlow 3.5s ease-in-out infinite',
                         'pulse-glow': 'pulseGlow 4.5s ease-in-out infinite',
-                        'spin-slow': 'spinSlow 16s linear infinite',
                         'hand-nudge': 'handNudge 2s ease-in-out infinite'
                     }
                 }
@@ -76,19 +70,20 @@
     <style>
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: #faf8f5; /* Warm Alabaster / Cream Estetik */
+            background-color: #faf8f5;
             color: #1c2422;
             overflow-x: hidden;
             transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         .dark body {
-            background-color: #0c1312; /* Deep Obsidian Teal */
+            background-color: #0c1312;
             color: #eef3f2;
         }
 
-        /* Glassmorphism Card Style */
+        /* Glassmorphism Card + Efek Cahaya Kursor (Spotlight Glow) */
         .glass-card {
+            position: relative;
             background: rgba(255, 255, 255, 0.9);
             backdrop-filter: blur(14px);
             border: 1px solid rgba(214, 211, 205, 0.8);
@@ -103,6 +98,25 @@
             box-shadow: 0 12px 30px -8px rgba(0, 0, 0, 0.45);
         }
 
+        .spotlight-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            background: radial-gradient(
+                380px circle at var(--mouse-x, -500px) var(--mouse-y, -500px),
+                rgba(212, 163, 89, 0.14),
+                transparent 70%
+            );
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0;
+            transition: opacity 0.35s ease;
+        }
+        .spotlight-card:hover::before {
+            opacity: 1;
+        }
+
         /* Modern Primary Button */
         .btn-primary {
             background: linear-gradient(135deg, #1f5c53, #16463f);
@@ -115,6 +129,21 @@
         .dark .btn-primary {
             background: linear-gradient(135deg, #d4a359, #b88337);
             color: #0c1312;
+        }
+
+        /* Kursor Berkedip untuk Efek Ketikan */
+        .typing-cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1.1em;
+            background-color: #d4a359;
+            margin-left: 3px;
+            vertical-align: middle;
+            animation: blinkCursor 0.85s infinite;
+        }
+        @keyframes blinkCursor {
+            0%, 49% { opacity: 1; }
+            50%, 100% { opacity: 0; }
         }
 
         /* ✨ 1. ANIMASI BUKU: Muncul Meluncur dari Samping Kanan Saat Di-Scroll */
@@ -157,7 +186,6 @@
             transform: perspective(1000px) translateX(0) rotateY(0deg) scale(1);
         }
 
-        /* Bar Keahlian: Tahan di 0% sebelum di-scroll, lalu terisi halus saat muncul */
         .skill-section-ready .skill-bar-fill {
             animation: none;
             width: 0% !important;
@@ -167,7 +195,7 @@
             width: var(--target-width) !important;
         }
 
-        /* 📖 BUKU 3D ESTETIK EDITORIAL (LEBAR + KUPU-KUPU UJUNG ATAS) */
+        /* 📖 BUKU 3D ESTETIK EDITORIAL */
         .book-wrapper {
             perspective: 1500px;
             display: flex;
@@ -184,7 +212,6 @@
             transform-style: preserve-3d;
             transition: transform 0.5s ease;
         }
-        /* Ketebalan Halaman Kertas Buku */
         .book-container::after {
             content: '';
             position: absolute;
@@ -211,7 +238,6 @@
             );
             box-shadow: 12px 16px 32px rgba(0, 0, 0, 0.55);
         }
-        /* Sampul Buku Estetik */
         .book-cover {
             position: absolute;
             inset: 0;
@@ -226,7 +252,6 @@
             box-shadow: 14px 16px 32px rgba(15, 51, 46, 0.25);
             cursor: pointer;
         }
-        /* Lipatan Punggung Buku (Book Spine) */
         .book-cover::before {
             content: '';
             position: absolute;
@@ -239,7 +264,6 @@
             border-bottom-left-radius: 8px;
             border-right: 1px solid rgba(212, 163, 89, 0.25);
         }
-        /* Halaman Dalam Buku */
         .book-page {
             position: absolute;
             inset: 0;
@@ -258,12 +282,10 @@
             border-color: #2d4a45;
             color: #eef3f2;
         }
-        /* Saat Buku Dibuka (Hover atau Klik) */
         .book-container.open .book-cover, 
         .book-container:hover .book-cover {
             transform: rotateY(-148deg);
         }
-        /* Sembunyikan Petunjuk Tangan Saat Buku Terbuka */
         .book-container.open .hand-guide,
         .book-container:hover .hand-guide {
             opacity: 0;
@@ -397,7 +419,7 @@
     <section id="beranda" class="max-w-6xl mx-auto px-4 pt-12 pb-20 min-h-[80vh] flex items-center">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center w-full">
         
-        <!-- Kiri: Deskripsi -->
+        <!-- Kiri: Deskripsi + Efek Ketikan Otomatis -->
         <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
           <div class="inline-flex items-center gap-2 bg-primary-50 dark:bg-primary-800/80 text-primary-700 dark:text-bronze-300 px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide border border-primary-200 dark:border-primary-700">
             <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> PKL Trainee @ Access Media Tasikmalaya
@@ -406,6 +428,13 @@
           <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 dark:text-white leading-[1.15]">
             Membangun Solusi Web yang <span class="italic text-primary-500 dark:text-bronze-400 font-normal">Modern</span>, Presisi, & Responsif.
           </h1>
+
+          <!-- ✨ Teks Ketikan Otomatis -->
+          <div class="text-sm sm:text-base font-semibold text-primary-600 dark:text-bronze-300 flex items-center justify-center lg:justify-start gap-2">
+            <span class="text-slate-400 font-mono text-xs">&lt;role&gt;</span>
+            <span id="typingRole"></span><span class="typing-cursor"></span>
+            <span class="text-slate-400 font-mono text-xs">&lt;/role&gt;</span>
+          </div>
           
           <p class="text-slate-600 dark:text-slate-300 text-base sm:text-lg max-w-xl mx-auto lg:mx-0 font-normal leading-relaxed">
             Siswi Rekayasa Perangkat Lunak SMKN Manonjaya yang berfokus pada pengembangan antarmuka web interaktif, pengalaman pengguna (UI/UX), dan rekayasa perangkat lunak.
@@ -424,25 +453,25 @@
         <!-- Kanan: Visual Card Modern -->
         <div class="lg:col-span-5 flex justify-center">
           <div class="relative w-full max-w-xs sm:max-w-sm">
-            <div class="glass-card p-3.5 rounded-3xl shadow-xl border border-slate-200 dark:border-primary-700 relative z-10">
+            <div class="glass-card spotlight-card p-3.5 rounded-3xl shadow-xl border border-slate-200 dark:border-primary-700 relative z-10">
               <div class="w-full h-96 rounded-2xl overflow-hidden relative bg-primary-800">
                 <img src="foto-renti.jpg.jpeg" alt="Renti Renata" class="w-full h-full object-cover object-[50%_28%] scale-105">
                 <div class="absolute inset-0 bg-gradient-to-t from-primary-800/90 via-transparent to-transparent"></div>
                 <div class="absolute bottom-4 left-4 right-4 text-white">
                   <p class="font-serif text-xl font-bold">Renti Renata</p>
-                  <p class="text-xs text-bronze-300 font-light">Software Engineering Student</p>
+                  <p class="text-xs text-bronze-300 font-light"></p>
                 </div>
               </div>
             </div>
             <div class="absolute -bottom-6 -right-6 w-48 h-48 bg-primary-200/50 dark:bg-bronze-400/15 rounded-full blur-3xl z-0"></div>
           </div>
         </div>
+
       </div>
     </section>
 
     <!-- 📖 BAGIAN TENTANG SAYA (BUKU LEBAR ESTETIK + KUPU-KUPU UJUNG ATAS + ANIMASI SCROLL DARI KANAN) -->
     <section id="tentang" class="py-20 px-4 bg-[#f3efe8]/80 dark:bg-[#101a18] border-y border-stone-200/80 dark:border-primary-800 relative overflow-hidden">
-      <!-- Dekorasi Cahaya Ambient Halus -->
       <div class="absolute left-1/4 top-10 w-72 h-72 bg-bronze-400/10 rounded-full blur-3xl pointer-events-none animate-pulse-glow"></div>
       <div class="absolute right-1/4 bottom-10 w-72 h-72 bg-primary-500/10 rounded-full blur-3xl pointer-events-none animate-pulse-glow"></div>
 
@@ -456,7 +485,6 @@
         <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Klik atau arahkan kursor ke buku di bawah untuk membuka halaman cerita</p>
       </div>
 
-      <!-- BUKU LEBAR ESTETIK (MELUNCUR DARI SAMPING KANAN SAAT DI-SCROLL) -->
       <div class="max-w-4xl mx-auto px-2">
         <div id="bookReveal" class="book-wrapper w-full slide-from-right">
           <div id="interactiveBook" onclick="toggleBook()" class="book-container group">
@@ -479,7 +507,6 @@
                   </linearGradient>
                 </defs>
 
-                <!-- Sayap Kiri -->
                 <g class="wing-left">
                   <path d="M49 48 C34 18, 6 16, 12 42 C15 54, 34 55, 49 52 Z" fill="url(#goldWing1)" stroke="#faf8f5" stroke-width="1.2"/>
                   <path d="M44 47 C33 27, 16 26, 19 41 C21 48, 33 49, 44 49 Z" fill="url(#goldWing2)" opacity="0.55"/>
@@ -487,7 +514,6 @@
                   <circle cx="29" cy="68" r="2.2" fill="#faf8f5" opacity="0.8"/>
                 </g>
 
-                <!-- Sayap Kanan -->
                 <g class="wing-right">
                   <path d="M51 48 C66 18, 94 16, 88 42 C85 54, 66 55, 51 52 Z" fill="url(#goldWing1)" stroke="#faf8f5" stroke-width="1.2"/>
                   <path d="M56 47 C67 27, 84 26, 81 41 C79 48, 67 49, 56 49 Z" fill="url(#goldWing2)" opacity="0.55"/>
@@ -495,7 +521,6 @@
                   <circle cx="71" cy="68" r="2.2" fill="#faf8f5" opacity="0.8"/>
                 </g>
 
-                <!-- Badan & Antena Kupu-Kupu -->
                 <rect x="48.3" y="37" width="3.4" height="27" rx="2" fill="#09201d" stroke="#e2c290" stroke-width="0.8"/>
                 <path d="M49 38 C45 30, 41 27, 38 28" stroke="#e2c290" stroke-width="1.3" stroke-linecap="round"/>
                 <circle cx="38" cy="28" r="1.4" fill="#f3dcb2"/>
@@ -504,35 +529,31 @@
               </svg>
             </div>
 
-            <!-- 👆 ANIMASI PETUNJUK TANGAN MENGAJAK MEMBUKA BUKU -->
+            <!-- 👆 ANIMASI PETUNJUK TANGAN -->
             <div class="hand-guide absolute -bottom-5 right-6 sm:right-8 z-30 flex items-center gap-2 bg-white/95 dark:bg-primary-800/95 backdrop-blur-md px-4 py-2 rounded-full shadow-xl border border-bronze-400/60 transition-opacity duration-300 animate-hand-nudge pointer-events-none">
               <span class="text-lg leading-none">👆</span>
               <span class="text-[11px] font-bold text-primary-700 dark:text-bronze-300 tracking-wide">Sentuh & Buka Buku</span>
             </div>
 
-            <!-- Sampul Depan Buku Estetik -->
+            <!-- Sampul Depan Buku -->
             <div class="book-cover p-8 md:p-10 flex flex-col justify-between overflow-hidden">
               <div class="absolute inset-3.5 border border-bronze-400/35 rounded-[8px_20px_20px_8px] pointer-events-none"></div>
               <div class="absolute inset-5 border border-dashed border-bronze-400/20 rounded-[6px_16px_16px_6px] pointer-events-none"></div>
 
-              <!-- Pita Pembatas Buku -->
               <div class="absolute -top-1 right-16 w-6 h-14 bg-gradient-to-b from-bronze-400 to-bronze-500 shadow-md flex items-end justify-center pb-1.5 rounded-b-sm z-20">
                 <i class="fa-solid fa-bookmark text-primary-800 text-[10px]"></i>
               </div>
 
-              <!-- Ornamen Lengkung Artistik di Bawah Sampul -->
               <svg class="absolute bottom-0 left-0 w-full opacity-15 pointer-events-none" viewBox="0 0 1440 320" fill="none">
                 <path fill="#d4a359" d="M0,192L60,181.3C120,171,240,149,360,154.7C480,160,600,192,720,197.3C840,203,960,181,1080,165.3C1200,149,1320,139,1380,133.3L1440,128L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path>
               </svg>
 
-              <!-- Header Sampul -->
               <div class="flex justify-between items-center pl-5 pr-12 relative z-10">
                 <span class="text-[10px] tracking-[0.22em] font-mono uppercase text-bronze-300 border border-bronze-400/40 bg-bronze-400/10 px-3.5 py-1 rounded-full">
                   EDISI 2026 • VOL. 01
                 </span>
               </div>
 
-              <!-- Judul & Subjudul Sampul -->
               <div class="text-center space-y-3 pl-5 pr-3 my-auto relative z-10">
                 <div class="flex items-center justify-center gap-3 opacity-80">
                   <span class="w-16 h-[1px] bg-gradient-to-r from-transparent to-bronze-300"></span>
@@ -549,7 +570,6 @@
                 </p>
               </div>
 
-              <!-- Footer Sampul -->
               <div class="flex items-center justify-between text-xs text-stone-300 pt-3.5 pl-5 border-t border-bronze-400/25 relative z-10">
                 <span class="text-xs italic text-stone-300">Oleh: Renti Renata</span>
                 <span class="flex items-center gap-1.5 text-bronze-300 font-semibold text-xs">
@@ -594,8 +614,8 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <!-- Kartu 1: Pemrograman Web (Muncul 3D dari Kiri) -->
-            <div class="skill-card-left glass-card p-8 relative overflow-hidden group hover:-translate-y-2 hover:shadow-2xl transition-all duration-500 border border-stone-200/90 dark:border-primary-700">
+            <!-- Kartu 1 -->
+            <div class="skill-card-left glass-card spotlight-card p-8 relative overflow-hidden group hover:-translate-y-2 hover:shadow-2xl transition-all duration-500 border border-stone-200/90 dark:border-primary-700">
                 <div class="absolute -top-14 -right-14 w-44 h-44 bg-primary-500/15 dark:bg-bronze-400/10 rounded-full blur-3xl animate-pulse-glow"></div>
                 <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary-500 via-bronze-400 to-primary-600"></div>
 
@@ -613,7 +633,6 @@
                 </div>
 
                 <div class="space-y-6 relative z-10">
-                    <!-- HTML5 & CSS3 -->
                     <div class="group/bar transition-transform duration-300 hover:translate-x-1.5">
                         <div class="flex justify-between text-sm font-semibold mb-2">
                             <span class="text-slate-700 dark:text-slate-200 group-hover/bar:text-primary-600 dark:group-hover/bar:text-bronze-300 transition">HTML5 & CSS3</span>
@@ -626,7 +645,6 @@
                         </div>
                     </div>
 
-                    <!-- Tailwind CSS -->
                     <div class="group/bar transition-transform duration-300 hover:translate-x-1.5">
                         <div class="flex justify-between text-sm font-semibold mb-2">
                             <span class="text-slate-700 dark:text-slate-200 group-hover/bar:text-primary-600 dark:group-hover/bar:text-bronze-300 transition">Tailwind CSS</span>
@@ -639,7 +657,6 @@
                         </div>
                     </div>
 
-                    <!-- JavaScript & PHP Dasar -->
                     <div class="group/bar transition-transform duration-300 hover:translate-x-1.5">
                         <div class="flex justify-between text-sm font-semibold mb-2">
                             <span class="text-slate-700 dark:text-slate-200 group-hover/bar:text-primary-600 dark:group-hover/bar:text-bronze-300 transition">JavaScript & PHP Dasar</span>
@@ -654,8 +671,8 @@
                 </div>
             </div>
 
-            <!-- Kartu 2: Desain & Alat Produksi (Muncul 3D dari Kanan) -->
-            <div class="skill-card-right glass-card p-8 relative overflow-hidden group hover:-translate-y-2 hover:shadow-2xl transition-all duration-500 border border-stone-200/90 dark:border-primary-700">
+            <!-- Kartu 2 -->
+            <div class="skill-card-right glass-card spotlight-card p-8 relative overflow-hidden group hover:-translate-y-2 hover:shadow-2xl transition-all duration-500 border border-stone-200/90 dark:border-primary-700">
                 <div class="absolute -top-14 -right-14 w-44 h-44 bg-bronze-400/20 rounded-full blur-3xl animate-pulse-glow"></div>
                 <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-bronze-400 via-primary-500 to-bronze-500"></div>
 
@@ -673,7 +690,6 @@
                 </div>
 
                 <div class="space-y-6 relative z-10">
-                    <!-- Canva & Layout Desain -->
                     <div class="group/bar transition-transform duration-300 hover:translate-x-1.5">
                         <div class="flex justify-between text-sm font-semibold mb-2">
                             <span class="text-slate-700 dark:text-slate-200 group-hover/bar:text-bronze-600 dark:group-hover/bar:text-bronze-300 transition">Canva & Layout Desain</span>
@@ -686,7 +702,6 @@
                         </div>
                     </div>
 
-                    <!-- VS Code & Tools Developer -->
                     <div class="group/bar transition-transform duration-300 hover:translate-x-1.5">
                         <div class="flex justify-between text-sm font-semibold mb-2">
                             <span class="text-slate-700 dark:text-slate-200 group-hover/bar:text-bronze-600 dark:group-hover/bar:text-bronze-300 transition">VS Code & Tools Developer</span>
@@ -699,7 +714,6 @@
                         </div>
                     </div>
 
-                    <!-- Microsoft Office & Perkantoran -->
                     <div class="group/bar transition-transform duration-300 hover:translate-x-1.5">
                         <div class="flex justify-between text-sm font-semibold mb-2">
                             <span class="text-slate-700 dark:text-slate-200 group-hover/bar:text-bronze-600 dark:group-hover/bar:text-bronze-300 transition">Microsoft Office & Perkantoran</span>
@@ -716,36 +730,27 @@
         </div>
     </section>
 
-    <!-- 💻 PROYEK SAYA (ESTETIK GALLERY SHOWCASE) -->
+    <!-- 💻 PROYEK SAYA (FOTO ASLI + POP-UP DETAIL MODAL SAAT DIKLIK) -->
     <section id="proyek" class="max-w-6xl mx-auto px-4 py-16">
       <div class="text-center max-w-2xl mx-auto mb-14 space-y-2">
         <span class="text-xs font-bold uppercase tracking-widest text-primary-500 dark:text-bronze-300 block">Showcase Karya</span>
         <h2 class="font-serif text-3xl md:text-4xl font-bold text-slate-900 dark:text-white">Proyek Pilihan 💻</h2>
-        <p class="text-slate-500 dark:text-slate-400 text-sm">Kumpulan hasil proyek web dan desain antarmuka terbaik.</p>
+        <p class="text-slate-500 dark:text-slate-400 text-sm">Klik kartu proyek di bawah untuk melihat detail pengerjaan dan fitur lengkapnya.</p>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         <!-- Proyek 1 -->
-        <div class="glass-card overflow-hidden flex flex-col group hover:-translate-y-2.5 hover:shadow-2xl transition-all duration-500 border border-stone-200/90 dark:border-primary-700">
-          <div class="w-full h-56 bg-gradient-to-br from-[#16463f] via-[#1f5c53] to-[#0f332e] p-5 flex items-center justify-center relative overflow-hidden">
-            <span class="absolute top-3.5 left-3.5 bg-white/15 backdrop-blur-md text-white text-[10px] font-bold uppercase px-3 py-1 rounded-full tracking-wider border border-white/20">Proyek PKL</span>
-            <span class="absolute top-3.5 right-3.5 text-bronze-300/70 font-mono text-xs font-bold">01</span>
-            <svg class="w-full h-full max-h-40 group-hover:scale-105 group-hover:-rotate-1 transition duration-500 drop-shadow-xl" viewBox="0 0 300 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="40" y="20" width="220" height="135" rx="10" fill="#14201e" stroke="#d4a359" stroke-width="2.5"/>
-              <rect x="48" y="28" width="204" height="119" rx="6" fill="#0c1312"/>
-              <rect x="48" y="28" width="204" height="18" fill="#1d312e"/>
-              <circle cx="58" cy="37" r="3" fill="#e07a5f"/>
-              <circle cx="68" cy="37" r="3" fill="#d4a359"/>
-              <circle cx="78" cy="37" r="3" fill="#81b29a"/>
-              <rect x="60" y="54" width="60" height="45" rx="6" fill="#1d312e"/>
-              <rect x="130" y="54" width="110" height="12" rx="4" fill="#d4a359" opacity="0.85"/>
-              <rect x="130" y="72" width="80" height="8" rx="3" fill="#bfd9d3"/>
-              <rect x="130" y="86" width="95" height="8" rx="3" fill="#4f7770"/>
-              <rect x="60" y="106" width="180" height="30" rx="6" fill="#1d312e"/>
-              <path d="M20 160 L280 160 L290 168 L10 168 Z" fill="#d4a359" opacity="0.7"/>
-            </svg>
+        <div onclick="openProjectModal(0)" class="glass-card spotlight-card overflow-hidden flex flex-col group hover:-translate-y-2.5 hover:shadow-2xl transition-all duration-500 border border-stone-200/90 dark:border-primary-700 cursor-pointer">
+          <div class="w-full h-56 relative overflow-hidden bg-primary-800">
+            <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80" alt="Redesain Website Access Media" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+            <div class="absolute inset-0 bg-gradient-to-t from-[#0c1312]/85 via-[#0c1312]/15 to-[#0c1312]/35"></div>
+            <span class="absolute top-3.5 left-3.5 bg-primary-600/80 dark:bg-bronze-400/90 backdrop-blur-md text-white dark:text-primary-900 text-[10px] font-bold uppercase px-3 py-1 rounded-full tracking-wider border border-white/20 z-10">Proyek PKL</span>
+            <span class="absolute top-3.5 right-3.5 bg-primary-800/75 backdrop-blur-sm px-2 py-0.5 rounded-md text-bronze-300 font-mono text-xs font-bold z-10">01</span>
+            <span class="absolute bottom-3 right-3 bg-white/90 text-primary-800 text-[10px] font-bold px-2.5 py-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
+              <i class="fa-solid fa-up-right-from-square mr-1"></i>Lihat Detail
+            </span>
           </div>
-          <div class="p-6 flex-1 flex flex-col justify-between space-y-5">
+          <div class="p-6 flex-1 flex flex-col justify-between space-y-5 relative z-10">
             <div>
               <h4 class="font-serif text-lg font-bold text-slate-900 dark:text-white mb-2 group-hover:text-primary-600 dark:group-hover:text-bronze-300 transition">Redesain Website Access Media</h4>
               <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">Pembaruan antarmuka utama (UI/UX) situs tempat PKL agar lebih bersih, modern, dan responsif.</p>
@@ -758,21 +763,17 @@
         </div>
 
         <!-- Proyek 2 -->
-        <div class="glass-card overflow-hidden flex flex-col group hover:-translate-y-2.5 hover:shadow-2xl transition-all duration-500 border border-stone-200/90 dark:border-primary-700">
-          <div class="w-full h-56 bg-gradient-to-br from-[#b88337] via-[#966624] to-[#6b4716] p-5 flex items-center justify-center relative overflow-hidden">
-            <span class="absolute top-3.5 left-3.5 bg-white/15 backdrop-blur-md text-white text-[10px] font-bold uppercase px-3 py-1 rounded-full tracking-wider border border-white/20">Branding</span>
-            <span class="absolute top-3.5 right-3.5 text-white/70 font-mono text-xs font-bold">02</span>
-            <svg class="w-full h-full max-h-40 group-hover:scale-105 group-hover:rotate-1 transition duration-500 drop-shadow-xl" viewBox="0 0 300 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="50" y="20" width="200" height="135" rx="12" fill="#faf8f5" stroke="#e2c290" stroke-width="2.5"/>
-              <rect x="65" y="38" width="80" height="65" rx="8" fill="#f3efe8"/>
-              <circle cx="95" cy="65" r="14" fill="#b88337"/>
-              <rect x="155" y="42" width="80" height="12" rx="4" fill="#16463f"/>
-              <rect x="155" y="60" width="65" height="8" rx="3" fill="#d4a359"/>
-              <rect x="155" y="74" width="75" height="8" rx="3" fill="#d4a359"/>
-              <rect x="65" y="112" width="170" height="30" rx="6" fill="#f3efe8" stroke="#e2c290"/>
-            </svg>
+        <div onclick="openProjectModal(1)" class="glass-card spotlight-card overflow-hidden flex flex-col group hover:-translate-y-2.5 hover:shadow-2xl transition-all duration-500 border border-stone-200/90 dark:border-primary-700 cursor-pointer">
+          <div class="w-full h-56 relative overflow-hidden bg-primary-800">
+            <img src="https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?auto=format&fit=crop&w=800&q=80" alt="Company Profile Design" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+            <div class="absolute inset-0 bg-gradient-to-t from-[#0c1312]/85 via-[#0c1312]/15 to-[#0c1312]/35"></div>
+            <span class="absolute top-3.5 left-3.5 bg-bronze-500/85 backdrop-blur-md text-white text-[10px] font-bold uppercase px-3 py-1 rounded-full tracking-wider border border-white/20 z-10">Branding</span>
+            <span class="absolute top-3.5 right-3.5 bg-primary-800/75 backdrop-blur-sm px-2 py-0.5 rounded-md text-bronze-300 font-mono text-xs font-bold z-10">02</span>
+            <span class="absolute bottom-3 right-3 bg-white/90 text-primary-800 text-[10px] font-bold px-2.5 py-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
+              <i class="fa-solid fa-up-right-from-square mr-1"></i>Lihat Detail
+            </span>
           </div>
-          <div class="p-6 flex-1 flex flex-col justify-between space-y-5">
+          <div class="p-6 flex-1 flex flex-col justify-between space-y-5 relative z-10">
             <div>
               <h4 class="font-serif text-lg font-bold text-slate-900 dark:text-white mb-2 group-hover:text-bronze-600 dark:group-hover:text-bronze-300 transition">Company Profile Design</h4>
               <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">Perancangan materi profil perusahaan dan slide presentasi bisnis berbasis Canva.</p>
@@ -785,21 +786,17 @@
         </div>
 
         <!-- Proyek 3 -->
-        <div class="glass-card overflow-hidden flex flex-col group hover:-translate-y-2.5 hover:shadow-2xl transition-all duration-500 border border-stone-200/90 dark:border-primary-700">
-          <div class="w-full h-56 bg-gradient-to-br from-[#233834] via-[#172623] to-[#0c1312] p-5 flex items-center justify-center relative overflow-hidden">
-            <span class="absolute top-3.5 left-3.5 bg-white/15 backdrop-blur-md text-white text-[10px] font-bold uppercase px-3 py-1 rounded-full tracking-wider border border-white/20">Tugas SMK</span>
-            <span class="absolute top-3.5 right-3.5 text-bronze-300/70 font-mono text-xs font-bold">03</span>
-            <svg class="w-full h-full max-h-40 group-hover:scale-105 group-hover:-rotate-1 transition duration-500 drop-shadow-xl" viewBox="0 0 300 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="100" y="20" width="100" height="140" rx="16" fill="#faf8f5" stroke="#d4a359" stroke-width="2.5"/>
-              <rect x="100" y="20" width="100" height="30" rx="10" fill="#dfece9"/>
-              <circle cx="120" cy="35" r="4" fill="#16463f"/>
-              <circle cx="132" cy="35" r="3" fill="#b88337"/>
-              <rect x="155" y="28" width="30" height="14" rx="4" fill="#16463f"/>
-              <circle cx="150" cy="100" r="32" fill="#dfece9" stroke="#16463f" stroke-width="3"/>
-              <circle cx="150" cy="100" r="22" fill="#1f5c53" opacity="0.65"/>
-            </svg>
+        <div onclick="openProjectModal(2)" class="glass-card spotlight-card overflow-hidden flex flex-col group hover:-translate-y-2.5 hover:shadow-2xl transition-all duration-500 border border-stone-200/90 dark:border-primary-700 cursor-pointer">
+          <div class="w-full h-56 relative overflow-hidden bg-primary-800">
+            <img src="https://images.unsplash.com/photo-1545173168-9f1947eebb7f?auto=format&fit=crop&w=800&q=80" alt="Aplikasi Pengelolaan Laundry" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+            <div class="absolute inset-0 bg-gradient-to-t from-[#0c1312]/85 via-[#0c1312]/15 to-[#0c1312]/35"></div>
+            <span class="absolute top-3.5 left-3.5 bg-primary-600/80 dark:bg-bronze-400/90 backdrop-blur-md text-white dark:text-primary-900 text-[10px] font-bold uppercase px-3 py-1 rounded-full tracking-wider border border-white/20 z-10">Tugas SMK</span>
+            <span class="absolute top-3.5 right-3.5 bg-primary-800/75 backdrop-blur-sm px-2 py-0.5 rounded-md text-bronze-300 font-mono text-xs font-bold z-10">03</span>
+            <span class="absolute bottom-3 right-3 bg-white/90 text-primary-800 text-[10px] font-bold px-2.5 py-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
+              <i class="fa-solid fa-up-right-from-square mr-1"></i>Lihat Detail
+            </span>
           </div>
-          <div class="p-6 flex-1 flex flex-col justify-between space-y-5">
+          <div class="p-6 flex-1 flex flex-col justify-between space-y-5 relative z-10">
             <div>
               <h4 class="font-serif text-lg font-bold text-slate-900 dark:text-white mb-2 group-hover:text-primary-600 dark:group-hover:text-bronze-300 transition">Aplikasi Pengelolaan Laundry</h4>
               <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">Sistem informasi manajemen transaksi usaha laundry berbasis PHP & MySQL.</p>
@@ -831,7 +828,7 @@
           </div>
           <span class="hidden md:block absolute -left-36 top-2 text-xs font-bold font-mono text-emerald-600 dark:text-emerald-400 text-right w-24">● Berlangsung</span>
 
-          <div class="glass-card p-6 md:p-8 relative overflow-hidden transition-all duration-500 group-hover:-translate-y-2 group-hover:shadow-2xl border border-stone-200/90 dark:border-primary-700">
+          <div class="glass-card spotlight-card p-6 md:p-8 relative overflow-hidden transition-all duration-500 group-hover:-translate-y-2 group-hover:shadow-2xl border border-stone-200/90 dark:border-primary-700">
             <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
               <span class="md:hidden text-xs font-bold font-mono text-emerald-600 dark:text-emerald-400">● Sedang Berlangsung</span>
               <span class="bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full border border-emerald-200 dark:border-emerald-800">Praktik Kerja Lapangan (PKL)</span>
@@ -859,7 +856,7 @@
           </div>
           <span class="hidden md:block absolute -left-36 top-2 text-xs font-bold font-mono text-primary-600 dark:text-bronze-300 text-right w-24">● Siswi Aktif</span>
 
-          <div class="glass-card p-6 md:p-8 relative overflow-hidden transition-all duration-500 group-hover:-translate-y-2 group-hover:shadow-2xl border border-stone-200/90 dark:border-primary-700">
+          <div class="glass-card spotlight-card p-6 md:p-8 relative overflow-hidden transition-all duration-500 group-hover:-translate-y-2 group-hover:shadow-2xl border border-stone-200/90 dark:border-primary-700">
             <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
               <span class="md:hidden text-xs font-bold font-mono text-primary-600 dark:text-bronze-300">● Siswi Aktif</span>
               <span class="bg-primary-50 dark:bg-primary-800 text-primary-700 dark:text-bronze-300 text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full border border-primary-200 dark:border-primary-700">Pendidikan Kejuruan</span>
@@ -886,7 +883,7 @@
     <section id="kontak" class="max-w-6xl mx-auto px-4 py-16">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
         <!-- Wadah Sticky Guestbook -->
-        <div class="lg:col-span-7 glass-card p-6 md:p-8">
+        <div class="lg:col-span-7 glass-card spotlight-card p-6 md:p-8">
           <h3 class="font-serif text-2xl font-bold text-slate-900 dark:text-white mb-2">Sticky Guestbook</h3>
           <p class="text-xs text-slate-500 dark:text-slate-400 mb-6">Tinggalkan salam, masukan, atau pesan di papan digital ini.</p>
 
@@ -894,9 +891,9 @@
             <input type="text" id="guestName" placeholder="Nama Kamu..." class="w-full px-4 py-2.5 rounded-xl border border-stone-200 dark:border-primary-700 dark:bg-primary-800/60 dark:text-white text-xs focus:outline-none focus:border-primary-500" required>
             
             <select id="noteColor" class="w-full px-4 py-2.5 rounded-xl border border-stone-200 dark:border-primary-700 dark:bg-primary-800/60 dark:text-white text-xs focus:outline-none focus:border-primary-500">
-              <option value="bg-stone-100 border-stone-300">Warna Warm Cream</option>
-              <option value="bg-amber-50 border-amber-200">Warna Champagne Gold</option>
-              <option value="bg-emerald-50 border-emerald-200">Warna Sage Mint</option>
+              <option value="bg-stone-100 border-stone-300 dark:bg-primary-800/90 dark:border-primary-600">Warna Warm Cream</option>
+              <option value="bg-amber-50 border-amber-200 dark:bg-[#1d2219] dark:border-bronze-400/50">Warna Champagne Gold</option>
+              <option value="bg-emerald-50 border-emerald-200 dark:bg-[#0f2622] dark:border-emerald-500/40">Warna Sage Mint</option>
             </select>
 
             <textarea id="guestMessage" rows="3" placeholder="Tuliskan pesan..." class="w-full px-4 py-2.5 rounded-xl border border-stone-200 dark:border-primary-700 dark:bg-primary-800/60 dark:text-white text-xs focus:outline-none focus:border-primary-500" required></textarea>
@@ -911,33 +908,52 @@
           </div>
         </div>
 
-        <!-- Kartu Hubungi Saya -->
-        <div class="lg:col-span-5 glass-card p-6 md:p-8 flex flex-col justify-between">
+       <!-- Kartu Hubungi Saya (Khusus Instagram & WhatsApp) -->
+        <div class="lg:col-span-5 glass-card spotlight-card p-6 md:p-8 flex flex-col justify-between">
           <div>
             <div class="inline-block mb-4">
               <span class="bg-primary-600 dark:bg-bronze-400 text-white dark:text-primary-800 px-4 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase">
-                KEPERCAYAAN KLIEN
+                KONTAK LANGSUNG
               </span>
             </div>
             
-            <h3 class="font-serif text-2xl font-bold text-slate-900 dark:text-white mb-4">Hubungi Saya</h3>
+            <h3 class="font-serif text-2xl font-bold text-slate-900 dark:text-white mb-3">Hubungi Saya</h3>
             <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed mb-6">
-              Terbuka untuk diskusi proyek web development, kolaborasi UI/UX design, maupun peluang praktik kerja.
+              Terbuka untuk diskusi proyek web development maupun kolaborasi desain. Silakan hubungi langsung melalui Instagram atau WhatsApp di bawah ini:
             </p>
 
-            <div class="space-y-4 text-xs font-medium text-slate-700 dark:text-slate-200">
-              <div class="flex items-center gap-3">
-                <div class="w-8 h-8 rounded-lg bg-primary-50 dark:bg-primary-800 text-primary-600 dark:text-bronze-300 flex items-center justify-center">
-                  <i class="fa-solid fa-location-dot"></i>
+            <div class="space-y-3.5 text-xs font-medium">
+              <!-- Tombol WhatsApp -->
+              <a href="https://wa.me/6283151696699" target="_blank" rel="noopener noreferrer" class="w-full flex items-center justify-between px-4 py-3.5 rounded-xl bg-emerald-50/90 dark:bg-primary-800/90 hover:bg-emerald-100 dark:hover:bg-primary-700 border border-emerald-200 dark:border-primary-700 transition group">
+                <div class="flex items-center gap-3.5">
+                  <div class="w-9 h-9 rounded-lg bg-emerald-600 text-white flex items-center justify-center text-base shadow-sm">
+                    <i class="fa-brands fa-whatsapp"></i>
+                  </div>
+                  <div>
+                    <p class="font-bold text-slate-900 dark:text-white text-sm">WhatsApp</p>
+                    <p class="text-[11px] text-slate-500 dark:text-slate-400">+62 812-3456-7890</p>
+                  </div>
                 </div>
-                <span>Tasikmalaya, Jawa Barat</span>
-              </div>
-              <div class="flex items-center gap-3">
-                <div class="w-8 h-8 rounded-lg bg-primary-50 dark:bg-primary-800 text-primary-600 dark:text-bronze-300 flex items-center justify-center">
-                  <i class="fa-solid fa-graduation-cap"></i>
+                <span class="text-[11px] font-bold text-emerald-700 dark:text-bronze-300 flex items-center gap-1 group-hover:translate-x-1 transition">
+                  Chat <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                </span>
+              </a>
+
+              <!-- Tombol Instagram -->
+              <a href="https://www.instagram.com/renataaaa_ren?rpxt=OTUyemY0enh2ZXQw" target="_blank" rel="noopener noreferrer" class="w-full flex items-center justify-between px-4 py-3.5 rounded-xl bg-amber-50/80 dark:bg-primary-800/90 hover:bg-amber-100/80 dark:hover:bg-primary-700 border border-amber-200/80 dark:border-primary-700 transition group">
+                <div class="flex items-center gap-3.5">
+                  <div class="w-9 h-9 rounded-lg bg-bronze-500 dark:bg-bronze-400 text-white dark:text-primary-900 flex items-center justify-center text-base shadow-sm">
+                    <i class="fa-brands fa-instagram"></i>
+                  </div>
+                  <div>
+                    <p class="font-bold text-slate-900 dark:text-white text-sm">Instagram</p>
+                    <p class="text-[11px] text-slate-500 dark:text-slate-400">@rentirenata</p>
+                  </div>
                 </div>
-                <span>SMKN Manonjaya (RPL)</span>
-              </div>
+                <span class="text-[11px] font-bold text-bronze-600 dark:text-bronze-300 flex items-center gap-1 group-hover:translate-x-1 transition">
+                  Kunjungi <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                </span>
+              </a>
             </div>
           </div>
 
@@ -945,8 +961,36 @@
             &copy; 2026 Renti Renata. All rights reserved.
           </div>
         </div>
-      </div>
     </section>
+
+    <!-- ✨ POP-UP MODAL DETAIL PROYEK -->
+    <div id="projectModal" onclick="closeProjectModal(event)" class="hidden fixed inset-0 z-50 bg-[#09201d]/80 backdrop-blur-sm flex items-center justify-center p-4">
+      <div onclick="event.stopPropagation()" class="glass-card max-w-lg w-full overflow-hidden border border-bronze-400/50 shadow-2xl transform transition-all">
+        <div class="relative h-52 bg-primary-800">
+          <img id="modalImg" src="" alt="Preview Proyek" class="w-full h-full object-cover">
+          <div class="absolute inset-0 bg-gradient-to-t from-[#0c1312] via-transparent to-black/30"></div>
+          <button onclick="closeProjectModal()" aria-label="Tutup" class="absolute top-3.5 right-3.5 w-8 h-8 rounded-full bg-black/60 text-white hover:bg-bronze-400 hover:text-primary-900 flex items-center justify-center transition">
+            <i class="fa-solid fa-xmark text-sm"></i>
+          </button>
+          <span id="modalBadge" class="absolute bottom-3 left-5 bg-bronze-400 text-primary-900 text-[10px] font-bold uppercase px-3 py-1 rounded-full"></span>
+        </div>
+        <div class="p-6 space-y-4">
+          <h3 id="modalTitle" class="font-serif text-2xl font-bold text-slate-900 dark:text-white"></h3>
+          <p id="modalDesc" class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed"></p>
+          <div class="bg-stone-100/80 dark:bg-primary-800/70 p-3.5 rounded-xl border border-stone-200 dark:border-primary-700">
+            <p class="text-[11px] font-bold uppercase tracking-wider text-primary-600 dark:text-bronze-300 mb-1.5">Poin Pengerjaan:</p>
+            <ul id="modalHighlights" class="text-xs text-slate-700 dark:text-slate-200 space-y-1 list-disc list-inside"></ul>
+          </div>
+          <div id="modalTags" class="flex flex-wrap gap-2 pt-1"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ✨ NOTIFIKASI TOAST MELAYANG -->
+    <div id="toastNotification" class="fixed bottom-6 right-6 z-50 translate-y-20 opacity-0 pointer-events-none transition-all duration-300 bg-primary-700 dark:bg-bronze-400 text-white dark:text-primary-900 px-5 py-3 rounded-2xl shadow-2xl text-xs font-bold flex items-center gap-2.5 border border-bronze-300/40">
+      <i class="fa-solid fa-circle-check text-sm"></i>
+      <span id="toastMessage">Berhasil disalin!</span>
+    </div>
 
     <!-- JAVASCRIPT & FIREBASE INTEGRATION -->
     <script>
@@ -991,6 +1035,139 @@
       function toggleMobileMenu() {
         const menu = document.getElementById('mobile-menu');
         if (menu) menu.classList.toggle('hidden');
+      }
+
+      // ✨ Efek Ketikan Otomatis di Hero
+      (function initTypingEffect() {
+        const target = document.getElementById('typingRole');
+        if (!target) return;
+        const roles = [
+          'Web Developer & UI/UX Enthusiast',
+          'Frontend Learner (HTML, CSS, Tailwind)',
+          'Siswi RPL SMKN Manonjaya'
+        ];
+        let roleIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+
+        function typeLoop() {
+          const currentText = roles[roleIndex];
+          if (isDeleting) {
+            target.textContent = currentText.substring(0, charIndex - 1);
+            charIndex--;
+          } else {
+            target.textContent = currentText.substring(0, charIndex + 1);
+            charIndex++;
+          }
+
+          let speed = isDeleting ? 40 : 75;
+          if (!isDeleting && charIndex === currentText.length) {
+            speed = 1800;
+            isDeleting = true;
+          } else if (isDeleting && charIndex === 0) {
+            isDeleting = false;
+            roleIndex = (roleIndex + 1) % roles.length;
+            speed = 400;
+          }
+          setTimeout(typeLoop, speed);
+        }
+        typeLoop();
+      })();
+
+      // ✨ Efek Cahaya Kursor (Spotlight Glow) pada Kartu Kaca
+      document.querySelectorAll('.spotlight-card').forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+          const rect = card.getBoundingClientRect();
+          card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+          card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+        });
+      });
+
+      // ✨ Data & Fungsi Pop-up Detail Proyek
+      const projectData = [
+        {
+          badge: 'Proyek PKL • 01',
+          title: 'Redesain Website Access Media',
+          img: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=900&q=80',
+          desc: 'Proyek perancangan ulang tampilan antarmuka website perusahaan tempat PKL di Access Media Tasikmalaya agar navigasi lebih ramah pengguna dan tampil optimal di perangkat mobile maupun desktop.',
+          highlights: [
+            'Menyusun layout responsif menggunakan Tailwind CSS',
+            'Memperbaiki hierarki tipografi dan kontras warna',
+            'Menambahkan interaksi halus pada tombol dan kartu informasi'
+          ],
+          tags: ['Tailwind CSS', 'HTML5 & CSS3', 'UI/UX Design']
+        },
+        {
+          badge: 'Branding • 02',
+          title: 'Company Profile Design',
+          img: 'https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?auto=format&fit=crop&w=900&q=80',
+          desc: 'Pembuatan aset visual profil perusahaan dan deck presentasi layanan bisnis menggunakan Canva dengan komposisi warna dan tata letak editorial yang rapi.',
+          highlights: [
+            'Merancang struktur halaman profil layanan perusahaan',
+            'Menjaga konsistensi identitas visual, ikon, dan palet warna',
+            'Menyiapkan format presentasi siap pakai untuk kebutuhan klien'
+          ],
+          tags: ['Canva', 'Layout Design', 'Visual Branding']
+        },
+        {
+          badge: 'Tugas SMK • 03',
+          title: 'Aplikasi Pengelolaan Laundry',
+          img: 'https://images.unsplash.com/photo-1545173168-9f1947eebb7f?auto=format&fit=crop&w=900&q=80',
+          desc: 'Aplikasi berbasis web untuk mencatat data pelanggan, jenis paket cucian, status pengerjaan, hingga riwayat transaksi pembayaran pada usaha laundry.',
+          highlights: [
+            'Perancangan struktur database relasional di MySQL',
+            'Pembuatan fitur CRUD (Tambah, Lihat, Ubah, Hapus) data transaksi',
+            'Antarmuka kasir yang sederhana dan mudah dioperasikan'
+          ],
+          tags: ['PHP', 'MySQL', 'Web System']
+        }
+      ];
+
+      function openProjectModal(index) {
+        const data = projectData[index];
+        const modal = document.getElementById('projectModal');
+        if (!data || !modal) return;
+
+        document.getElementById('modalImg').src = data.img;
+        document.getElementById('modalBadge').textContent = data.badge;
+        document.getElementById('modalTitle').textContent = data.title;
+        document.getElementById('modalDesc').textContent = data.desc;
+
+        const listEl = document.getElementById('modalHighlights');
+        listEl.innerHTML = data.highlights.map(item => `<li>${item}</li>`).join('');
+
+        const tagsEl = document.getElementById('modalTags');
+        tagsEl.innerHTML = data.tags.map(tag =>
+          `<span class="bg-primary-50 dark:bg-primary-800 text-primary-700 dark:text-bronze-300 text-[11px] font-semibold px-2.5 py-1 rounded-md">${tag}</span>`
+        ).join('');
+
+        modal.classList.remove('hidden');
+      }
+
+      function closeProjectModal() {
+        const modal = document.getElementById('projectModal');
+        if (modal) modal.classList.add('hidden');
+      }
+
+      // ✨ Salin Email + Notifikasi Toast
+      function showToast(msg) {
+        const toast = document.getElementById('toastNotification');
+        const text = document.getElementById('toastMessage');
+        if (!toast || !text) return;
+        text.textContent = msg;
+        toast.classList.remove('translate-y-20', 'opacity-0');
+        setTimeout(() => {
+          toast.classList.add('translate-y-20', 'opacity-0');
+        }, 2500);
+      }
+
+      function copyContactEmail() {
+        const email = document.getElementById('emailText').textContent.trim();
+        navigator.clipboard.writeText(email).then(() => {
+          showToast('Email berhasil disalin ke clipboard!');
+        }).catch(() => {
+          showToast('Email: ' + email);
+        });
       }
 
       // ✨ 1. Animasi Buku Meluncur dari Samping Kanan
@@ -1055,15 +1232,9 @@
       initBookReveal();
       initSkillsReveal();
 
-      // Pengaman Firebase agar tidak memblokir animasi lain
-      var notesRef = null;
-      try {
-        if (typeof firebase !== 'undefined' && firebase.apps.length > 0) {
-          notesRef = firebase.database().ref('guestbook');
-        }
-      } catch (e) {
-        console.warn("Firebase belum dikonfigurasi:", e);
-      }
+      // ✨ SISTEM STICKY GUESTBOOK: Tampil Langsung di Bawah Form + Kirim ke WhatsApp
+      const STORAGE_KEY = 'renti_guestbook_notes';
+      const NOMOR_WA = '6283151696699'; // 👈 GANTI DENGAN NOMOR WA ASLIMU (awalan 62)
 
       function escapeHtml(text) {
         if (!text) return '';
@@ -1075,50 +1246,46 @@
           .replace(/'/g, "&#039;");
       }
 
-      if (notesRef) {
-        notesRef.on('value', (snapshot) => {
-          const board = document.getElementById('stickyBoard');
-          if (!board) return;
-          
-          board.innerHTML = ''; 
-          const data = snapshot.val();
+    function renderStickyNotes() {
+        const board = document.getElementById('stickyBoard');
+        if (!board) return;
 
-          if (data) {
-            const notesArray = Object.keys(data).map(key => ({
-              id: key,
-              ...data[key]
-            }));
+        const savedNotes = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+        board.innerHTML = '';
 
-            notesArray.sort((a, b) => (a.timestamp || 0) - (b.timestamp || 0));
-
-            notesArray.forEach(note => {
-              const noteDiv = document.createElement('div');
-              const safeName = escapeHtml(note.name || 'Tanpa Nama');
-              const safeMsg = escapeHtml(note.message || '');
-              const safeColor = note.color || 'bg-stone-100 border-stone-300';
-
-              noteDiv.className = `${safeColor} p-4 rounded-2xl border-2 shadow-sm relative transition duration-300 hover:shadow-md text-slate-800`;
-              noteDiv.innerHTML = `
-                <span class="absolute top-2 right-2 text-xs opacity-60">📌</span>
-                <p class="font-bold text-xs text-slate-900">${safeName}</p>
-                <p class="text-xs text-slate-700 mt-1 break-words">"${safeMsg}"</p>
-              `;
-              board.appendChild(noteDiv);
-            });
-
-            board.scrollTop = board.scrollHeight;
-          } else {
-            board.innerHTML = '<p class="text-xs text-slate-400 italic col-span-2 text-center">Belum ada pesan. Jadi yang pertama menempelkan pesan!</p>';
-          }
-        });
-      }
-
-      function addStickyNote(e) {
-        if (e && e.preventDefault) e.preventDefault();
-        if (!notesRef) {
-          alert("Firebase belum terhubung. Tambahkan firebaseConfig terlebih dahulu.");
+        if (savedNotes.length === 0) {
+          board.innerHTML = '<p class="text-xs text-slate-400 italic col-span-2 text-center py-4">Belum ada pesan. Jadi yang pertama menempelkan pesan!</p>';
           return;
         }
+
+        const darkColorMap = {
+          'bg-stone-100 border-stone-300': 'bg-stone-100 border-stone-300 dark:bg-primary-800/90 dark:border-primary-600',
+          'bg-amber-50 border-amber-200': 'bg-amber-50 border-amber-200 dark:bg-[#1d2219] dark:border-bronze-400/50',
+          'bg-emerald-50 border-emerald-200': 'bg-emerald-50 border-emerald-200 dark:bg-[#0f2622] dark:border-emerald-500/40'
+        };
+
+        savedNotes.forEach((note) => {
+          const noteDiv = document.createElement('div');
+          const safeName = escapeHtml(note.name);
+          const safeMsg = escapeHtml(note.message);
+          const safeTime = escapeHtml(note.time || 'Baru saja');
+          const safeColor = darkColorMap[note.color] || note.color || 'bg-stone-100 border-stone-300 dark:bg-primary-800/90 dark:border-primary-600';
+
+          noteDiv.className = `${safeColor} p-4 rounded-2xl border shadow-sm relative transition duration-300 hover:shadow-md text-slate-800 dark:text-slate-100`;
+          noteDiv.innerHTML = `
+            <div class="flex items-center justify-between mb-1.5">
+              <p class="font-bold text-xs text-slate-900 dark:text-bronze-300">${safeName}</p>
+              <span class="text-[10px] text-slate-500 dark:text-slate-400">📌 ${safeTime}</span>
+            </div>
+            <p class="text-xs text-slate-700 dark:text-slate-200 mt-1 break-words leading-relaxed">"${safeMsg}"</p>
+          `;
+          board.appendChild(noteDiv);
+        });
+
+        board.scrollTop = board.scrollHeight;
+      }
+      function addStickyNote(e) {
+        if (e && e.preventDefault) e.preventDefault();
 
         const nameInput = document.getElementById('guestName');
         const msgInput = document.getElementById('guestMessage');
@@ -1129,22 +1296,37 @@
         const color = colorInput ? colorInput.value : 'bg-stone-100 border-stone-300';
 
         if (!name || !message) {
-          alert('Harap isi nama dan pesan kamu ya!');
+          showToast('Harap isi nama dan pesan kamu dulu!');
           return;
         }
 
-        notesRef.push({
+        const now = new Date();
+        const timeString = now.toLocaleDateString('id-ID', { day: 'numeric', month: 'short' }) + ', ' +
+                           now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+
+        const savedNotes = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+        savedNotes.push({
           name: name,
           message: message,
           color: color,
-          timestamp: firebase.database.ServerValue.TIMESTAMP
-        }).then(() => {
-          nameInput.value = '';
-          msgInput.value = '';
-        }).catch((err) => {
-          console.error("Gagal menyimpan pesan:", err);
+          time: timeString
         });
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(savedNotes));
+        renderStickyNotes();
+
+        nameInput.value = '';
+        msgInput.value = '';
+        showToast('Pesan tertempel & meneruskan ke WhatsApp...');
+
+        const waText = `Halo Renti! Ada pesan baru dari Sticky Guestbook Portofolio:\n\n*Nama:* ${name}\n*Pesan:* "${message}"`;
+        const waUrl = `https://wa.me/${NOMOR_WA}?text=${encodeURIComponent(waText)}`;
+        
+        setTimeout(() => {
+          window.open(waUrl, '_blank', 'noopener,noreferrer');
+        }, 500);
       }
+
+      renderStickyNotes();
     </script>
 </body>
 </html>
