@@ -2205,5 +2205,23 @@
     }
   });
 </script>
+<style>
+  html, body {
+    max-width: 100%;
+    overflow-x: clip;
+  }
+</style>
+<script>
+  window.addEventListener('load', () => {
+    // Pastikan tombol Back to Top (↑) selalu pas di dalam batas layar HP
+    document.querySelectorAll('button').forEach(btn => {
+      if (btn.textContent.trim() === '↑') {
+        btn.style.right = '16px';
+        btn.style.bottom = '18px';
+        btn.style.zIndex = '9999';
+      }
+    });
+  });
+</script>
 </body>
 </html>
